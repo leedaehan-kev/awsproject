@@ -1,0 +1,333 @@
+body{
+  margin:0;
+}
+a{
+  text-decoration:0;
+  color:white
+}
+li{
+  list-style: none;
+}
+.navbar{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  padding:8px 12px;
+  color:white;
+}
+.navbar__logo{
+  font-size: 24px;
+}
+.navbar__logo  i{
+  color:brown;
+}
+.navbar__menu{
+  display:flex;
+  list-style:none;
+  padding-left:0;
+}
+.navbar__menu li{
+  padding:8px 12px;
+}
+.navbar__menu li:hover{
+  border:1px solid WHITE;
+  padding: 7px;
+  background-color:gray;
+  border-radius: 4px;
+}
+.navbar__icons{
+  list-style: none;
+  display:flex;
+}
+.navbar__icons li{
+  margin-left:10px;
+}
+
+/* index.html */
+/* title */
+.container{
+
+  width:100%;
+  display:flex;
+  justify-content: center;
+}
+.homepage{
+
+  width:40%;
+}
+.title{
+  padding:20px;
+  text-align: center;
+  list-style: none;
+}
+.title .bigTitle{
+  font-size: 50px;
+  font-weight:bold;
+}
+.title .smallTitle{
+  color:darkgrey;
+  margin-top: 20px;
+}
+
+/* img */
+.firstimage{
+  text-align: center;
+
+}
+.firstimage img{
+  border-radius: 2%;
+}  
+
+/* writing */
+.writing{
+  text-align: center;
+
+}
+
+.writing .item{
+  list-style: none;
+  margin-top:30px;
+}
+.writing .subtitle{
+  font-size:25px;
+  color:black;
+}
+.writing .info{
+  justify-content: space-between;
+}
+.writing .info .topic{
+  color:red;
+  margin-right:20px;
+}
+.writing .info .date{
+  color:green;
+}
+
+.footer {
+  width:100%;
+  display:flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.footer .page{
+  font-size:18px;
+  display:flex;
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.footer a{
+  color:black;
+  margin-right:10px;
+  margin-left:10px;
+}
+
+
+
+
+/* post_detail.html */
+.wrapping{
+  width:100%;
+  display:flex;
+  height:100vh;
+  justify-content: center;
+
+}
+.detailpage{
+  width:40%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detailTitle{
+  padding:40px;
+  text-align: center;
+}
+.detailTitle .bigTitle{
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+.detailTitle .detailInfo .detailTopic{
+  color:red;
+
+}
+.detailTitle .detailInfo .detailDate{
+  color:green;
+  margin-left:10px;
+}
+
+.detailimage img{
+  border-radius: 3%;
+  width:500px;
+  height:400px;
+}
+.detailpage .writing{
+  padding:40px;
+  font-size:20px;
+}
+/* post_form.html */
+
+.create h2{
+  text-align: center;
+  color:black;
+  padding:50px;
+}
+.create .form_wrapper{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  border:2px solid black;
+}
+
+
+/* new.html */
+.container{
+  text-align: center;
+}
+.container h4{
+  font-size:30px;
+}
+.container .title h4{
+  margin-bottom: 10px;
+}
+.container .image h4{
+  margin-bottom: 10px;
+}
+.container .content h4{
+  margin-bottom: 10px;
+}
+.container .category h4{
+  margin-bottom: 10px;
+}
+.container .submit input{
+  margin-top:70px;
+  cursor:pointer;
+  width:100px;
+  height:50px;
+  font-size:20px;
+  background-color:darksalmon;
+  border-radius: 7px;
+  border:none;
+}
+
+/* register.html */
+.wrap{
+  display:flex;
+  justify-content: center;
+  width:100%;
+  height:100vh;
+}
+.signup{
+  width:30%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.signup form{
+  width:80%;
+}
+.signup h2{
+  color:tomato;
+  font-size: 40px;
+  text-align: center;
+}
+.signup_sns{ 
+
+  display:flex;
+  justify-content: space-around;
+  margin-left:50px;
+  margin-right:50px;
+}
+.signup li{
+  padding:0px 15px;
+}
+
+.signup a{
+  color:black;
+  width:50px;
+  height:50px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+}
+
+.signup_id{
+
+  width:100%;
+}
+.signup_id input{
+  width:90%;
+  height:50px;
+  border-radius: 30px;
+  padding:0px 20px;
+  border: 1px solid lightgray;
+  outline:none;
+}
+
+.signup_pw{
+  margin-top:10px;
+  width:100%;
+}
+.signup_pw .pw{
+  display:flex;
+  justify-content: space-between;
+  font-size:16px;
+  font-weight: bold;
+}
+.signup_pw .error{
+  color:red;
+  font-size:13px;
+}
+.signup_pw input{
+  width:90%;
+  height:50px;
+  border-radius: 30px;
+  padding:0px 20px;
+  border: 1px solid lightgray;
+  outline:none;
+  margin-top:13px;
+}
+.signup_etc{
+  width:80%;
+  padding:10px;
+  font-size:14px;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.signup .submit{
+  width:100%;
+  margin-top:30px;
+  text-align: center;
+}
+.signup .submit input{
+  cursor: pointer;
+  width:100%;
+  height:50px;
+  border-radius: 50px;
+  font-size:20px;
+  border:none;
+  color:white;
+  letter-spacing: 2px;
+  background:linear-gradient(to left, rgb(255,77,46),rgb(255,155,47));
+}
+
+/* maps.html */
+.map{
+  text-align: center;
+  font-size: 25px;
+  color:royalblue;
+}
+.w2{
+  display:flex;
+  justify-content: center;
+}
+
