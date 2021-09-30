@@ -21,4 +21,4 @@
 - python manage.py migrate
 
 <최종적으로... 서버 실행>
-- python manage.py runserver
+- python manage.py runserver 
