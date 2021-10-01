@@ -1,0 +1,65 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d03fb00bef54bdef682cd70bc69010a"></script>
+    <script src="https://kit.fontawesome.com/10b73f68fd.js" crossorigin="anonymous"></script> 
+    <script src="js/test.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>My blog</title>
+</head>
+<body>
+     <div id="footer" style="background-color: rgba(16, 60, 180, 0.158)">
+          <br>
+          <div class = "container text-center text-md-start mt-5">
+            <!-- 소개, 연락, SNS -->
+            <div class="row mt-3">
+                <!-- 소개 -->
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">라떼는말이야</h6>
+                    <hr class = "one">
+                    <p>저희 개강한 대학생은 라떼는말이야 팀이 너무 불편했던 한국항공대학교 LMS 시스템을 개선해보고자 만든 사이트입니다.</p>
+                </div>
+        
+                <!-- 연락 -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                    <hr class = "one">
+                    <p>경기도 고양시 덕양구 한국항공대학교</p>
+                    <p>Latteishorse@gmail.com</p>
+                    <p>+ 82 031-****-***</p>
+                    <p>+ 82 010-****-****</p>
+                </div>
+        
+                <!-- SNS -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">SNS</h6>
+                    <hr class = "one">
+                    <p><a target="_blank" href="https://instagram.com"><i class="fa fa-instagram" aria-hidden="true"></i></a> instagram</p>
+                    <p><a target="_blank" href="https://facebook.com"><i class="fa fa-facebook-official" aria-hidden="true"></i></a> facebook</p>
+                    <p><a target="_blank" href="https://twitter.com" ><i class="fa fa-twitter-square" aria-hidden="true"></i></a> twitter</p>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+
+
+
+    
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
+
+
+
+
+
+
+
+ 
