@@ -1,10 +1,21 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-<h2 class="map">Kakao map</h2>
-<div class="w2">
-    <div id="map" style="width:500px;height:400px;">
-    </div> 
+
+<div class="data">
+    <div class="first">
+        <div id="map" style="width:600px;height:420px;"></div>
+    </div>
+    <div class="second">
+        {% load static %}
+        <img src="{% static 'img/background4.jpg' %}" alt="">
+    </div>
 </div>
+<canvas id="myChart" width="400" height="400"></canvas>
+
+
+
+
+<!--Javascript-->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d03fb00bef54bdef682cd70bc69010a"></script>
 <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -28,5 +39,7 @@
     
     // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
     // marker.setMap(null);    
-    </script>
+</script>
+   
+
 {% endblock %}

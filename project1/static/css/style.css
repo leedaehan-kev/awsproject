@@ -321,13 +321,22 @@ li{
 }
 
 /* maps.html */
-.map{
-  text-align: center;
-  font-size: 25px;
-  color:royalblue;
-}
-.w2{
+.data{
+  padding:50px;
+  border:2px solid black;
   display:flex;
-  justify-content: center;
+  justify-content: space-around;
+  
+}
+.data .first{
+
+  border:2px solid black;
+  margin-left:100px;
+
+}
+.data .second{
+
+  border:2px solid black;
+  margin-right:100px;
 }
 
