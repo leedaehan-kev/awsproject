@@ -1,15 +1,22 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-
-<div class="data">
-    <container class="first">
-        <div id="map" style="width:500px;height:420px;"></div>
-    </container>
-    <container class="second">
-        {% load static %}
-        <img src="{% static 'img/background4.jpg' %}" alt="">
-    </container>
+<div class="mappage">
+    <div class="data">
+        <container class="first">
+            <div id="map" style="width:500px;height:420px;"></div>
+        </container>
+        <container class="second">
+            {% load static %}
+            <img src="{% static 'img/background4.jpg' %}" alt="">
+        </container>
+    </div>
 </div>
+
+
+
+
+
+
 
 <!--Javascript-->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d03fb00bef54bdef682cd70bc69010a"></script>

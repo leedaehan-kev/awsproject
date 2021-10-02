@@ -14,8 +14,8 @@
 <body>
     <nav class="navbar">
         <div class="navbar__logo">
-            <i class="fab fa-blogger-b"></i>
-            <a href="{% url 'index' %}">MyBlog</a>
+            <i class="fa-solid fa-user-secret"></i> 
+            <a href="{% url 'index' %}">PPE Detection</a>
         </div>
 
         <ul class="navbar__menu">
@@ -36,11 +36,15 @@
         </div>
     </nav>
 
-
-
-    
     {% block content %}
     {% endblock %}
 
+    <footer class="footbar">
+        <ul>
+            <li>footer</li>
+            <li>여기에 머적을까</li>
+            <li></li>
+        </ul>
+    </footer>
 </body>
 </html>
