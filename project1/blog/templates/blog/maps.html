@@ -2,18 +2,14 @@
 {% block content %}
 
 <div class="data">
-    <div class="first">
-        <div id="map" style="width:600px;height:420px;"></div>
-    </div>
-    <div class="second">
+    <container class="first">
+        <div id="map" style="width:500px;height:420px;"></div>
+    </container>
+    <container class="second">
         {% load static %}
         <img src="{% static 'img/background4.jpg' %}" alt="">
-    </div>
+    </container>
 </div>
-<canvas id="myChart" width="400" height="400"></canvas>
-
-
-
 
 <!--Javascript-->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d03fb00bef54bdef682cd70bc69010a"></script>
@@ -39,6 +35,19 @@
     
     // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
     // marker.setMap(null);    
+    function resizeMap() {
+    var mapContainer = document.getElementById('map');
+    mapContainer.style.width = '650px';
+    mapContainer.style.height = '650px'; 
+    }
+
+    function relayout() {    
+        
+        // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+        // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+        // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+        map.relayout();
+    }
 </script>
    
 

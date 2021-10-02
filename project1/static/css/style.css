@@ -47,16 +47,17 @@ li{
 /* index.html */
 /* title */
 .container{
-
+  border:2px solid black;
   width:100%;
   display:flex;
   justify-content: center;
 }
 .homepage{
-
-  width:40%;
+  border:2px solid black;
+  width:50%;
 }
 .title{
+  border:2px solid black;
   padding:20px;
   text-align: center;
   list-style: none;
@@ -70,16 +71,16 @@ li{
   margin-top: 20px;
 }
 
-/* img */
 .firstimage{
-  text-align: center;
-
+  border:2px solid black;
+  width:100%;
 }
 .firstimage img{
+  border:2px solid black;
+  width:100%;
   border-radius: 2%;
 }  
 
-/* writing */
 .writing{
   text-align: center;
 
@@ -323,19 +324,36 @@ li{
 /* maps.html */
 .data{
   padding:50px;
-
+  border:2px solid black;
   display:flex;
-  justify-content: space-around;
-  
+  justify-content: center;
+
 }
 .data .first{
-
-
-  margin-left:100px;
-
+  border:2px solid black;
+  max-width:1000px;
+  padding:10px;
 }
 .data .second{
-
-  margin-right:100px;
+  border:2px solid black;
+  max-width:1000px;
+  padding:10px;
+  
 }
+.data .first img{
+  width:600px;
+  height:500px;
+}
+.data .second img{
+  min-width:600px;
+  width:100%;
+}
+
+
+
+
+
+
+
+
 
