@@ -46,13 +46,18 @@ li{
   margin-left:10px;
 }
 .footbar{
-  border:2px solid white;
   background-color:white;
   height:150px;
 
 }
 .footbar ul{
   text-align: center;
+}
+.footbar p{
+  font-size: 11px;
+}
+.footbar h6{
+  margin-top:10px;
 }
 
 
@@ -333,6 +338,7 @@ li{
   min-width:600px;
   width:100%;
 }
+
 
 
 
