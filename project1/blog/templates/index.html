@@ -10,7 +10,6 @@
             {% load static %}
             <img src="{% static 'img/background4.jpg' %}" alt="">
         </div>
-
         <div class="writing">
             
             {% for post in post_latest %}
@@ -35,11 +34,8 @@
             </li>
             {% endfor %}
 
-        </div>
-    </div>
+        </div>        </div>
 </div>
-
-
-
-
+{% load static %}
+<script src="{% static 'js/test.js' %}"></script>
 {% endblock %}
