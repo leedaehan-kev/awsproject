@@ -1,5 +1,10 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+from django.db.models.base import ModelState
+from django.db.models.deletion import Collector
+from django.db.models.fields import DateTimeField
+
 
 # Create your models here.
 #글의 분류(일상, 유머, 정보)
@@ -29,3 +34,15 @@ class Post(models.Model):
 
     def summary(self):
         return self.title[:20]
+
+
+class OURDB(models.Model):
+    Location_DB=models.CharField(max_length=45)
+    Count_num=models.IntegerField()
+    Helmet_num=models.IntegerField()
+    vehicle_type=models.IntegerField()
+    personal_ID=models.CharField(max_length=45)
+    vehicle_number=models.CharField(max_length=45)
+    phone_num=models.CharField(max_length=45)
+
+
