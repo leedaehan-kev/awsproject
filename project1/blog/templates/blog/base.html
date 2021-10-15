@@ -8,7 +8,7 @@
     <script src="https://kit.fontawesome.com/10b73f68fd.js" crossorigin="anonymous"></script> 
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>My blog</title>
+    <title>Hi!</title>
 </head>
 <body>
     <nav class="navbar">
@@ -20,6 +20,7 @@
         <ul class="navbar__menu">
             <li><a href="{% url 'index' %}">Home</a></li>
             <li><a href="{% url 'maps' %}">Maps</a></li>
+            <li><a href="{% url 'info' %}">Info</a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'create' %}">Create</a></li>
             <li><a href="{% url 'logout' %}">logout</a></li>

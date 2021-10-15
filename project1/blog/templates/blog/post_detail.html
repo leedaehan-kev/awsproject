@@ -5,14 +5,6 @@
         <div class="detailTitle">
             <div class="bigTitle">{{post.title}}</div>
             <div class="detailInfo">
-                <span class="detailTopic">
-                    {% for c in post.category.all %}
-                        {{c}}
-                        {% if not forloop.last %}
-                            ,
-                        {% endif %}
-                    {% endfor %}
-                </span>
                 <span class="detailDate">{{post.createDate}}</span>
             </div>
         </div>

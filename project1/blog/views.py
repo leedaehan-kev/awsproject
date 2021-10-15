@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from blog.models import Category, Post
+from blog.models import *
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
@@ -52,6 +52,11 @@ def register(req):
 
 def maps(req):
     return render(req, 'blog/maps.html')
+
+def info(req):
+    return render(req, 'blog/info.html')
+
+
 
 # 웹캠 비디오스트리밍 코드
 class VideoCamera(object):
