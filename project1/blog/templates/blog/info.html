@@ -2,6 +2,7 @@
 {% block content %}
 <div class="infopage">
     <div class="infocon">
+        {% if user.is_authenticated %}
         <div class="search">
             <form class="form1" action="{% url 'search' %}" method="post">
                 {% csrf_token %}
@@ -36,6 +37,13 @@
             </div>
             {% endif %}
         </div>
+        {% else %}
+        <script>
+            alert("로그인 후 이용가능합니다.");
+            var link='http://127.0.0.1:8000/account/login/';
+            location.replace(link);
+        </script>
+        {% endif %}
     </div>
 </div>
 
