@@ -339,9 +339,58 @@ li{
   width:100%;
 }
 
+/* info page */
+.infopage{
+  border:2px solid black;
+  width:100%;
+  display:flex;
+  justify-content: center;
+  height:100vh;
+}
+.infopage .infocon{
+  border:2px solid black;
+  width:50%;
+}
 
+.infopage .infocon .search{
+  border:1px solid black;
+  display:flex;
+}
+.infopage .infocon .search .btn2{
+  margin-left:160px;
+}
+.infopage .infocon .search a{
+  color:black;
+}
+.infopage .infocon .db{
+  border:1px solid black;
+}
+.infopage .infocon .db .category{
+  border:1px solid black;
+  text-align: center;
+  padding:5px;
+}
+.infopage .infocon .db .category .num{
+  margin-right:30px;
+}
+.infopage .infocon .db .category .name{
+  margin-right:30px;
+  margin-left:30px;
+}
+.infopage .infocon .db .category .pnum{
+  margin-right:30px;
+  margin-left:10px;
+}
+.infopage .infocon .db .category .cnt{
+  margin-right:30px;
+}
+.infopage .infocon .db .queryset{
 
-
+}
+.infopage .infocon .db .queryset li{
+  border:1px solid black;
+  padding:4px;
+}
 
 
 

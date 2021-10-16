@@ -3,9 +3,8 @@ from django.db.models.deletion import CASCADE
 from django.urls import reverse
 
 # Create your models here.
-#글의 분류(일상, 유머, 정보)
 
-#블로그 글(제목, 작성일, 대표이미지, 내용, 분류)
+#블로그 글(제목, 작성일, 대표이미지, 내용)
 class Post(models.Model):
     title = models.CharField(max_length=200)
     title_image = models.ImageField(blank=True)
@@ -23,9 +22,12 @@ class Post(models.Model):
     def summary(self):
         return self.title[:20]
 
-        
+
 class CarNumber(models.Model):
-    carnumber = models.TextField()
+    carnumber = models.CharField(max_length=20)
+    
+    def __str__(self):
+        return self.carnumber
 
 class Driver(models.Model):
     name = models.CharField(max_length=10)
@@ -33,6 +35,8 @@ class Driver(models.Model):
     carnumber = models.CharField(max_length=20)
     count = models.IntegerField()
     
+    def __str__(self):
+        return self.carnumber
 
 
 

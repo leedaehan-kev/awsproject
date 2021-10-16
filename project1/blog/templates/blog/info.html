@@ -1,16 +1,42 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-<div class="Infopage">
-    
+<div class="infopage">
+    <div class="infocon">
+        <div class="search">
+            <form class="form1" action="{% url 'search' %}" method="post">
+                {% csrf_token %}
+                <input class="inputbox" type="search" placeholder="차량번호입력" name="q" value="{{q}}">
+                <button class="btn1" type="submit">검색</button>
+            </form>
+            <button class="btn2"><a href="{% url 'searchwhole' %}">전체데이터</a></button>
+        </div>
+        
+        <div class="db">          
+            {% if not driver %}
+             <h4>검색 결과가 없습니다</h4>
+             
+            {% else %}
+            <div class="category">
+                <span class="section">
+                    <span class="num">차량번호</span>
+                    <span class="name">이름</span>
+                    <span class="pnum">전화번호</span>
+                    <span class="cnt">적발횟수</span>
+                </span>
+            </div>
+            <div class="queryset">
+                {% for driver in driver %}
+                    <li>
+                        &nbsp;&nbsp;{{driver.carnumber}}
+                        &nbsp;&nbsp;{{driver.name}}
+                        &nbsp;&nbsp;{{driver.phonenumber}}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{driver.count}}                    
+                    </li>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
 </div>
-
-
-
-
-
-
-
-
-
 
 {% endblock %}

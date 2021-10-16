@@ -3,7 +3,7 @@
 <div class="container">
     <div class="homepage">
         <div class="title">
-            <li class= bigTitle>Basic</li>
+            <li class= bigTitle>Webcam</li>
             <li class="smallTitle">Whatever is begun in anger ends in shame</li>
         </div>
         <div class="firstimage">
@@ -21,14 +21,6 @@
                     {% endif %}
                 </span></a>
                 <div class="info">
-                    <span class="topic">
-                        {% for c in post.category.all %}
-                            {{c}}
-                            {% if not forloop.last %}
-                                ,
-                            {% endif %}
-                        {% endfor %}
-                    </span>
                     <span class="date">{{post.createDate}}</span>
                 </div>
             </li>

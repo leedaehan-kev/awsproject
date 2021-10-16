@@ -9,5 +9,7 @@ urlpatterns=[
     path("post/maps", views.maps, name="maps"),
     path('detectme/',views.detectme,name="detectme"),
     path('info/',views.info,name="info"),
+    path('search/',views.search,name="search"),
+    path('searchwhole/',views.searchwhole,name="searchwhole"),
 
 ]
