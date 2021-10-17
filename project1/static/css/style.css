@@ -355,9 +355,10 @@ li{
 .infopage .infocon .search{
   border:1px solid black;
   display:flex;
+  justify-content: center;
 }
 .infopage .infocon .search .btn2{
-  margin-left:160px;
+
 }
 .infopage .infocon .search a{
   color:black;
@@ -370,28 +371,21 @@ li{
   text-align: center;
   padding:5px;
 }
-.infopage .infocon .db .category .num{
-  margin-right:30px;
+.infopage .infocon .db .category .section{
+  width:100%;
+  display:flex;
+  justify-content: center;
 }
-.infopage .infocon .db .category .name{
-  margin-right:30px;
-  margin-left:30px;
-}
-.infopage .infocon .db .category .pnum{
-  margin-right:30px;
-  margin-left:10px;
-}
-.infopage .infocon .db .category .cnt{
-  margin-right:30px;
-}
-.infopage .infocon .db .queryset{
-
+.infopage .infocon .db .category .section span{
+  margin-left:43px;
 }
 .infopage .infocon .db .queryset li{
-  border:1px solid black;
-  padding:4px;
+  display:flex;
+  justify-content: center;
 }
-
+.infopage .infocon .db .queryset li span{
+  margin-right:22px;
+}
 
 
 
