@@ -29,6 +29,7 @@ class CarNumber(models.Model):
     def __str__(self):
         return self.carnumber
 
+
 class Driver(models.Model):
     name = models.CharField(max_length=10)
     phonenumber = models.CharField(max_length=15)
@@ -37,8 +38,6 @@ class Driver(models.Model):
     
     def __str__(self):
         return self.carnumber
-
-
 
 
 

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'widget_tweaks',
     'account.apps.AccountConfig',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,14 @@ STATICFILES_FINDERS = (
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#여기서부터 aws s3연동
+DEFAULT_FILE_STORAGE = 'project1.storages.MediaStorage'
+STATICFILES_STORAGE = 'project1.storages.StaticStorage'
+
+MEDIAFILES_LOCATION = 'media'
+STATICFILES_LOCATION = 'static'
+
+AWS_ACCESS_KEY_ID = 'AKIA5MI27BRQRTCB2QCV'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'bgwstatic'
