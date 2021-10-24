@@ -4,14 +4,17 @@
     <div class="infocon">
         {% if user.is_authenticated %}
         <div class="search">
+
             <form class="form1" action="{% url 'search' %}" method="post">
                 {% csrf_token %}
                 <input class="inputbox" type="search" placeholder="차량번호입력" name="q" value="{{q}}">
                 <button class="btn1" type="submit">검색</button>
             </form>
+
+
             <button class="btn2"><a href="{% url 'searchwhole' %}">전체데이터</a></button>
         </div>
-        
+        <i class="fa-solid fa-magnifying-glass"></i>
         <div class="db">          
             {% if not driver %}
              <h4>검색 결과가 없습니다</h4>
@@ -23,6 +26,7 @@
                     <span class="name">이름</span>
                     <span class="pnum">전화번호</span>
                     <span class="cnt">건수</span>
+                    <span class="snsbtn">문자</span>
                 </span>
             </div>
             <div class="queryset">
@@ -31,12 +35,14 @@
                         <span class="cnum">{{driver.carnumber}}</span>
                         <span class="name">{{driver.name}}</span>
                         <span class="pnum">{{driver.phonenumber}}</span>
-                        <span class="cnt">{{driver.count}}</span>                
+                        <span class="cnt">{{driver.count}}</span>    
+                        <span class="snsbtn">전송</span>            
                     </li>
                 {% endfor %}
             </div>
             {% endif %}
         </div>
+        <i class="bi bi-search"></i>
         {% else %}
         <script>
             alert("로그인 후 이용가능합니다.");

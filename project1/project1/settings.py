@@ -136,7 +136,7 @@ STATICFILES_FINDERS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#여기서부터 aws s3연동
+# 여기서부터 aws s3연동
 DEFAULT_FILE_STORAGE = 'project1.storages.MediaStorage'
 STATICFILES_STORAGE = 'project1.storages.StaticStorage'
 
@@ -154,3 +154,7 @@ AWS_S3_CUSTOM_DOMAIN= f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com'
 AWS_S3_DEFAULT_ACL='public-read'
 AWS_LOCATION='static'
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+
+
+
+

@@ -63,6 +63,7 @@ def info(req):
     return render(req, "blog/info.html",context=context)
 
 # 필드명__icontains = 조건값 을 통해 조건값이 포함되는 데이터를 대소문자 구분없이 모두 가져옵니다.
+
 def search(req):
     driver = Driver.objects.all()
     q = req.POST.get('q',"")
@@ -72,12 +73,11 @@ def search(req):
     else:
         return render(req, 'blog/info.html')
     
-
+    
 def searchwhole(req):
     driver = Driver.objects.all()
     return render(req,'blog/info.html',{'driver':driver})
 
-    
 
 
 
