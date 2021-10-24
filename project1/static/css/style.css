@@ -345,52 +345,71 @@ li{
   width:100%;
   display:flex;
   justify-content: center;
-  height:100vh;
+  height:170vh;
 }
 .infopage .infocon{
-  border:2px solid black;
-  width:50%;
+  width:70%;
 }
-
 .infopage .infocon .search{
-  padding:20px;
-  border:1px solid black;
+  margin-top:30px;
+  padding:2px;
   display:flex;
   justify-content: center;
 }
+.infopage .infocon .search .btn2 a{
+  color:grey;
+}
 .infopage .infocon .search .btn2{
+  margin-right:200px;
+  border:1px solid rgb(184, 184, 184);
+  background-color: rgb(254, 255, 255);
+  width:80px;
+  height:35px;
+  border-radius: 4px;
+  cursor:pointer;
+}
+
+.infopage .infocon .search .inputbox{
+  width:150px;
+  height:30px;
 
 }
-.infopage .infocon .search a{
-  color:black;
+.infopage .infocon .search .btn1{
+  font-size: 20px;
+  height:30px;
+  border:1px solid rgb(156, 172, 194);
+  border-radius: 4px;
+  cursor:pointer;
+  background-color: rgb(255, 255, 255);
 }
-.infopage .infocon .db{
-  border:1px solid black;
+
+.infopage .infocon .db .nothing{
+  width:100%;
+  text-align: center;
 }
 .infopage .infocon .db .category{
-  border:1px solid black;
   text-align: center;
   padding:5px;
 }
 .infopage .infocon .db .category .section{
-  width:100%;
   display:flex;
   justify-content: center;
+  padding:5px;
 }
 .infopage .infocon .db .category .section span{
-  margin-left:43px;
+  margin-right:50px;
 }
-
+.infopage .infocon .db .category .section .name{
+  margin-left:22px;
+}
 
 .infopage .infocon .db .queryset li{
   display:flex;
   justify-content: center;
-  border: 1px solid black;
-  padding:5px;
-  
+  padding:5px; 
 }
 .infopage .infocon .db .queryset li span{
-  margin-right:15px;
+  margin-right:30px;
 }
 
 
