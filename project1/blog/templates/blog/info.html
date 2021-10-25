@@ -14,7 +14,7 @@
             </form>        
         </div>
         <i class="fa-solid fa-magnifying-glass"></i>
-        <hr align="center" style="border: solid 0.1px rgb(0, 0, 0);width:60%;">
+        <hr align="center" style="border: solid 0.1px rgb(0, 0, 0);width:550px;">
 
         <div class="db">          
             {% if not driver %}
@@ -29,7 +29,7 @@
                     <span class="pnum">전화번호</span>
                     <span class="cnt">건수</span>
                 </span>
-                <hr align="center" style="border: solid 0.1px rgb(0, 0, 0);width:60%;">
+                <hr align="center" style="border: solid 0.1px rgb(0, 0, 0);width:550px;">
             </div>
             <div class="queryset">
                 {% for driver in driver %}
@@ -38,9 +38,10 @@
                         <span class="name">{{driver.name}}</span>
                         <span class="pnum">{{driver.phonenumber}}</span>
                         <span class="cnt">{{driver.count}}</span>    
-                        <span class="snsbtn">전송</span>           
+                        <button class="snsbtn">전송</button>       
                     </li>
-                    <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:50%;">
+
+                    <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:500px;">
                 {% endfor %}
             </div>
             {% endif %}

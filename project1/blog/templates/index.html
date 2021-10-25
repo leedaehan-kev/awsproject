@@ -11,22 +11,10 @@
             <img src="{% static 'img/background4.jpg' %}" alt="">
         </div>
         <div class="writing">
-            
-            {% for post in post_latest %}
-            <li class="item">
-                <a href="{% url 'post' post.id %}"><span class="subtitle">
-                    {{post.summary}}
-                    {% if post.title|length > 20 %}
-                        ...
-                    {% endif %}
-                </span></a>
-                <div class="info">
-                    <span class="date">{{post.createDate}}</span>
-                </div>
-            </li>
-            {% endfor %}
 
-        </div>        </div>
+
+        </div>
+    </div>
 </div>
 {% load static %}
 <script src="{% static 'js/test.js' %}"></script>

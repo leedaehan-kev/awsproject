@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar">
         <div class="navbar__logo">
-            <i class="fa-solid fa-user-secret"></i> 
+            <i class="fas fa-hard-hat"></i>
             <a href="{% url 'index' %}">PPE Detection</a>
         </div>
 
@@ -24,7 +24,7 @@
             <li><a href="{% url 'maps' %}">Maps</a></li>
             <li><a href="{% url 'info' %}">Info</a></li>
             {% if user.is_authenticated %}
-            <li><a href="{% url 'create' %}">Create</a></li>
+
             <li><a href="{% url 'logout' %}">logout</a></li>
             {% else %}
             <li><a href="{% url 'signup' %}">Register</a></li>
@@ -33,8 +33,6 @@
 
         </ul>
         <div class="navbar__icons">
-            <li><a href="//www.facebook.com"><i class="fab fa-facebook"></i></a></li>
-            <li><a href="https://ko-kr.facebook.com/messenger/"><i class="fab fa-facebook-messenger"></i></a></li>
             
         </div>
     </nav>
