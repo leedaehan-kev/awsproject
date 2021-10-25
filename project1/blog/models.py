@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db.models.base import ModelState
@@ -7,23 +8,14 @@ from django.db.models.fields import DateTimeField
 
 
 # Create your models here.
-#글의 분류(일상, 유머, 정보)
-class Category(models.Model):
-    name = models.CharField(max_length=50, help_text="블로그 글의 분류를 입력하세요(ex:일상)")
 
-    def __str__(self):
-        return self.name
-#블로그 글(제목, 작성일, 대표이미지, 내용, 분류)
+#블로그 글(제목, 작성일, 대표이미지, 내용)
 class Post(models.Model):
     title = models.CharField(max_length=200)
     title_image = models.ImageField(blank=True)
     content = models.TextField()
     createDate = models.DateTimeField(auto_now_add=True)
     updateDate = models.DateTimeField(auto_now_add=True)
-    #하나의 글을 여러가지의 분류에 해당될 수 있다.(ex:정보, 유머),
-    #하나의 분류에는 여러가지 글이 포함될 수 있다.(ex:정보 카테고리에 글10개)
-    category = models.ManyToManyField(Category, help_text="글의 분류를 설정하세요.")
-    
 
     def __str__(self):
         return self.title
@@ -36,13 +28,27 @@ class Post(models.Model):
         return self.title[:20]
 
 
-class OURDB(models.Model):
-    Location_DB=models.CharField(max_length=45)
-    Count_num=models.IntegerField()
-    Helmet_num=models.IntegerField()
-    vehicle_type=models.IntegerField()
-    personal_ID=models.CharField(max_length=45)
-    vehicle_number=models.CharField(max_length=45)
-    phone_num=models.CharField(max_length=45)
+
+
+class CarNumber(models.Model):
+    carnumber = models.CharField(max_length=20)
+    
+    def __str__(self):
+        return self.carnumber
+
+
+class Driver(models.Model):
+    name = models.CharField(max_length=10)
+    phonenumber = models.CharField(max_length=15)
+    carnumber = models.CharField(max_length=20)
+    count = models.IntegerField()
+    
+    def __str__(self):
+        return self.carnumber
+
+
+
+
+
 
 

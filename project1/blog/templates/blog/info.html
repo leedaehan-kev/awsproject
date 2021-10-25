@@ -1,0 +1,60 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="infopage">
+    <div class="infocon">
+        {% if user.is_authenticated %}
+
+        <div class="search">
+            <button class="btn2"><a href="{% url 'searchwhole' %}">전체보기</a></button>
+
+            <form class="form1" action="{% url 'search' %}" method="post">
+                {% csrf_token %}
+                <input class="inputbox" type="search" placeholder="차량번호입력" name="q" value="{{q}}">
+                <button class="btn1" type="submit"><i class="fas fa-search"></i></button>
+            </form>        
+        </div>
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <hr align="center" style="border: solid 0.1px rgb(0, 0, 0);width:550px;">
+
+        <div class="db">          
+            {% if not driver %}
+                <div class="nothing">
+                    <h4>검색 결과가 없습니다</h4>
+                </div>
+            {% else %}
+            <div class="category">
+                <span class="section">
+                    <span class="num">차량번호</span>
+                    <span class="name">이름</span>
+                    <span class="pnum">전화번호</span>
+                    <span class="cnt">건수</span>
+                </span>
+                <hr align="center" style="border: solid 0.1px rgb(0, 0, 0);width:550px;">
+            </div>
+            <div class="queryset">
+                {% for driver in driver %}
+                    <li>
+                        <span class="cnum">{{driver.carnumber}}</span>
+                        <span class="name">{{driver.name}}</span>
+                        <span class="pnum">{{driver.phonenumber}}</span>
+                        <span class="cnt">{{driver.count}}</span>    
+                        <button class="snsbtn">전송</button>       
+                    </li>
+
+                    <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:500px;">
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        <i class="bi bi-search"></i>
+        {% else %}
+        <script>
+            alert("로그인 후 이용가능합니다.");
+            var link='http://127.0.0.1:8000/account/login/';
+            location.replace(link);
+        </script>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

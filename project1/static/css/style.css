@@ -22,7 +22,7 @@ li{
   font-size: 24px;
 }
 .navbar__logo  i{
-  color:brown;
+  color:white;
 }
 .navbar__menu{
   display:flex;
@@ -64,17 +64,18 @@ li{
 /* index.html */
 
 .container{
-  border:2px solid black;
+
+  height:100vh;
   width:100%;
   display:flex;
   justify-content: center;
 }
 .homepage{
-  border:2px solid black;
+
   width:50%;
 }
 .title{
-  border:2px solid black;
+
   padding:20px;
   text-align: center;
   list-style: none;
@@ -89,18 +90,18 @@ li{
 }
 
 .firstimage{
-  border:2px solid black;
+
   width:100%;
 }
 .firstimage img{
-  border:2px solid black;
+
   width:100%;
   border-radius: 2%;
 }  
 
 .writing{
   padding-bottom: 50px;
-  border:2px solid black;
+
   text-align: center;
   
 }
@@ -202,21 +203,21 @@ li{
 
 /* register.html */
 .wrap{
-  border:2px solid black;
+
   display:flex;
   justify-content: center;
   width:100%;
   height:80vh;
 }
 .signup{
-  border:2px solid black;
+
   width:30%;
   display:flex;
   flex-direction: column;
   align-items: center;
 }
 .signup form{
-  border:2px solid black;
+
   width:80%;
 }
 .signup h2{
@@ -339,12 +340,88 @@ li{
   width:100%;
 }
 
+/* info page */
+.infopage{
+  border:2px solid black;
+  width:100%;
+  display:flex;
+  justify-content: center;
+  height:170vh;
+}
+.infopage .infocon{
+  width:70%;
+}
+.infopage .infocon .search{
+  margin-top:30px;
+  padding:2px;
+  display:flex;
+  justify-content: center;
+}
+.infopage .infocon .search .btn2 a{
+  color:grey;
+}
+.infopage .infocon .search .btn2{
+  margin-right:200px;
+  border:1px solid rgb(184, 184, 184);
+  background-color: rgb(254, 255, 255);
+  width:80px;
+  height:35px;
+  border-radius: 4px;
+  cursor:pointer;
+}
 
+.infopage .infocon .search .inputbox{
+  width:150px;
+  height:30px;
 
+}
+.infopage .infocon .search .btn1{
+  font-size: 20px;
+  height:30px;
+  border:1px solid rgb(156, 172, 194);
+  border-radius: 4px;
+  cursor:pointer;
+  background-color: rgb(255, 255, 255);
+}
 
+.infopage .infocon .db .nothing{
+  width:100%;
+  text-align: center;
+}
+.infopage .infocon .db .category{
+  text-align: center;
+  padding:5px;
+}
+.infopage .infocon .db .category .section{
+  display:flex;
+  justify-content: center;
+  padding:5px;
+}
+.infopage .infocon .db .category .section span{
+  margin-right:50px;
+}
+.infopage .infocon .db .category .section .name{
+  margin-left:22px;
+}
 
-
-
+.infopage .infocon .db .queryset li{
+  display:flex;
+  justify-content: center;
+  padding:1px;
+}
+.infopage .infocon .db .queryset li span{
+  margin-right:35px;
+}
+.infopage .infocon .db .queryset li .snsbtn{
+  margin-left:10px;
+  background-color: rgb(232, 246, 255);
+  border:1px solid rgb(197, 197, 197);
+  border-radius: 4px;
+  width:40px;
+  height:25px;
+  font-size: 11px;
+  cursor:pointer;
+}
 
 
 
