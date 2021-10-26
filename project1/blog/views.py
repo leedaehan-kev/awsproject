@@ -12,17 +12,20 @@ from django.views.decorators import gzip
 from django.http import StreamingHttpResponse
 import cv2
 import threading
+#twilio sms
+from twilio.rest import Client
 
-
+#SMS key(이건 절대노출되면 안됨)
+account_sid = 'ACc9d44e3405a3b0e7588a8bb3ccad2456'
+auth_token = '05eead392a54f50611b7580c0e48bab8' 
+client = Client(account_sid, auth_token)
 
 # Create your views here.
 def index(req):
     return render(req, "index.html")
-    
 
 class PostDetailView(generic.DetailView):
     model = Post
-
 
 def maps(req):
     return render(req, 'blog/maps.html')
@@ -51,6 +54,16 @@ def search(req):
 def searchwhole(req):
     driver = Driver.objects.all()
     return render(req,'blog/info.html',{'driver':driver})
+
+def sendsns(req, phonenumber):
+    message = client.messages.create( 
+    to = "+82"+f"{phonenumber}",
+    from_="+13194088767", 
+    body="check this out 나는 정상수")
+
+    return redirect("searchwhole")
+
+
 
 
 

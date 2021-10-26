@@ -412,6 +412,9 @@ li{
 .infopage .infocon .db .queryset li span{
   margin-right:35px;
 }
+.infopage .infocon .db .queryset a{
+  color:black;
+}
 .infopage .infocon .db .queryset li .snsbtn{
   margin-left:10px;
   background-color: rgb(232, 246, 255);
