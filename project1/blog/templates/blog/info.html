@@ -37,8 +37,9 @@
                         <span class="cnum">{{driver.carnumber}}</span>
                         <span class="name">{{driver.name}}</span>
                         <span class="pnum">{{driver.phonenumber}}</span>
-                        <span class="cnt">{{driver.count}}</span>    
-                        <button class="snsbtn" ><a href="{% url 'sendsns' driver.phonenumber %}">전송</a></button>       
+                        <span class="cnt">{{driver.count}}</span>                   
+                        <button class="snsbtn" onclick="confirmSMS()"><a href="{% url 'sendsns' driver.phonenumber %}">전송</a></button>
+
                     </li>
                     <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:500px;">
                 {% endfor %}
@@ -55,5 +56,4 @@
         {% endif %}
     </div>
 </div>
-
 {% endblock %}

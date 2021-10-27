@@ -56,10 +56,10 @@ def searchwhole(req):
     return render(req,'blog/info.html',{'driver':driver})
 
 def sendsns(req, phonenumber):
-    message = client.messages.create( 
-    to = "+82"+f"{phonenumber}",
-    from_="+13194088767", 
-    body="check this out 나는 정상수")
+    # message = client.messages.create( 
+    # to = "+82"+f"{phonenumber}",
+    # from_="+13194088767", 
+    # body="check this out 나는 정상수")
 
     return redirect("searchwhole")
 

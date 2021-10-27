@@ -10,7 +10,7 @@
     <script src="https://kit.fontawesome.com/226cf9ba84.js" crossorigin="anonymous"></script>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>@@@@@@</title>
+    <title>PPE DETECTION</title>
 </head>
 <body>
     <nav class="navbar">
@@ -21,7 +21,7 @@
 
         <ul class="navbar__menu">
             <li><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'maps' %}">Maps</a></li>
+
             <li><a href="{% url 'info' %}">Info</a></li>
             {% if user.is_authenticated %}
 
@@ -51,5 +51,7 @@
                 </div>
         </ul>
     </footer>
+    <script src = '../static/js/test.js'></script>
+
 </body>
 </html>

@@ -64,18 +64,17 @@ li{
 /* index.html */
 
 .container{
-
+  border:1px solid black;
   height:100vh;
   width:100%;
   display:flex;
-  justify-content: center;
 }
 .homepage{
-
+  border:1px solid black;
   width:50%;
+  align-items: center;
 }
 .title{
-
   padding:20px;
   text-align: center;
   list-style: none;
@@ -88,42 +87,35 @@ li{
   color:darkgrey;
   margin-top: 20px;
 }
-
 .firstimage{
-
-  width:100%;
-}
-.firstimage img{
-
-  width:100%;
-  border-radius: 2%;
-}  
-
-.writing{
-  padding-bottom: 50px;
-
-  text-align: center;
   
 }
+.firstimage img{
+  border:1px solid black;
+  max-width:600px;
+  width:100%;
+  border-radius: 2%;
+  align-items: center;
+}  
 
-.writing .item{
-  list-style: none;
-  margin-top:30px;
+
+.sidepage{
+  border:1px solid black;
+  align-items: center;
 }
-.writing .subtitle{
-  font-size:25px;
+.sidepage .location{
+  padding:50px;
+}
+.sidepage .location .mname{
+  padding:20px;
   color:black;
 }
-.writing .info{
-  justify-content: space-between;
+.sidepage .seedata img{
+  width:400px;
+  height:300px;
+  border:1px solid black;
 }
-.writing .info .topic{
-  color:red;
-  margin-right:20px;
-}
-.writing .info .date{
-  color:green;
-}
+
 
 
 /* post_detail.html */
@@ -342,7 +334,7 @@ li{
 
 /* info page */
 .infopage{
-  border:2px solid black;
+
   width:100%;
   display:flex;
   justify-content: center;
