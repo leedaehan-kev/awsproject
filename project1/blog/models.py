@@ -43,7 +43,8 @@ class Driver(models.Model):
     def __str__(self):
         return self.carnumber
 
-
+class Photo(models.Model):
+    image = models.ImageField(upload_to='images/',blank=True,null=True)
 
 
 

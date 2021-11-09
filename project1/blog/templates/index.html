@@ -10,6 +10,12 @@
             {% load static %}
             <img src="{% static 'img/133.PNG' %}" alt="">
         </div>
+        <div class="printnumber">
+          <button><a href="{% url 'detect' %}">결과보기</a></button>
+          {% for plateNumber in plateNumber %}
+            {{plateNumber}}
+          {% endfor%}
+        </div>
     </div>
     <div class="sidepage">
         <div class="location">
@@ -19,6 +25,7 @@
             <img src="{% static 'img/data4.PNG' %}" alt="">
         </div>
     </div>
+
 </div>
 
 

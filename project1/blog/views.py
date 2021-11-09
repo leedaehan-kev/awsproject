@@ -15,10 +15,22 @@ import threading
 #twilio sms
 from twilio.rest import Client
 
+import boto3
+import os
 #SMS key(이건 절대노출되면 안됨)
 account_sid = 'ACc9d44e3405a3b0e7588a8bb3ccad2456'
 auth_token = '05eead392a54f50611b7580c0e48bab8' 
 client = Client(account_sid, auth_token)
+
+#google vision & rekognition api
+import io
+import cv2
+import numpy as np
+from google.cloud import vision
+from shapely.geometry import Point
+from shapely.geometry.polygon import Polygon
+
+
 
 # Create your views here.
 def index(req):
@@ -50,18 +62,210 @@ def search(req):
     else:
         return render(req, 'blog/info.html')
     
-    
+
 def searchwhole(req):
     driver = Driver.objects.all()
     return render(req,'blog/info.html',{'driver':driver})
 
 def sendsns(req, phonenumber):
-    # message = client.messages.create( 
+    # message = client.messages.create(
     # to = "+82"+f"{phonenumber}",
     # from_="+13194088767", 
-    # body="check this out 나는 정상수")
+    # body="문자 전송 Test")
 
     return redirect("searchwhole")
+
+
+
+
+def result(req):
+    photo = Photo.objects.all()
+    return render(req,'blog/result.html',{'photo':photo})
+
+def create(req):
+    photo = Photo()
+    try:
+        photo.image = req.FILES['img']
+    except:
+        pass
+    photo.save()
+    return redirect('result')
+
+
+
+
+
+def upload():
+    AWS_ACCESS_KEY_ID =os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = 'forstatic'
+    AWS_REGION='ap-northeast-2'
+
+    s3 = boto3.client('s3',aws_access_key_id=AWS_ACCESS_KEY_ID,aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+    region_name=AWS_REGION)
+
+    namelist = list()
+    obj = s3.list_objects(Bucket=AWS_STORAGE_BUCKET_NAME)
+    for content in obj['Contents']:
+        if('static/img'in content['Key']):
+            namelist.append(content['Key'])
+    return namelist
+
+def detect(req):
+    nlist = upload()
+    ab = list()
+
+    for name in nlist:
+        photo = name
+        bucket='forstatic'
+        client=boto3.client('rekognition',
+        aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+                            aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+                            region_name='ap-northeast-2')
+        response = client.detect_labels(Image={'S3Object':
+        {'Bucket':bucket,'Name':photo}},
+                MaxLabels=10)
+        flag=0
+        for label in response['Labels']:           
+            if(label['Name']=='Motorcycle' and label['Confidence']>80):
+                print('오토바이 감지')
+                flag=1
+        
+        helmet_flag=0
+        flag2=0
+        # 오토바이 감지가 된 경우에 헬맷을 썼냐 안썼냐 판별
+        if(flag==1):
+            for label in response['Labels']:
+                if(label['Name']=='Helmet' and label['Confidence']>80):
+                    print('헬맷 착용')
+                    flag2=1
+                else:
+                    helmet_flag=1
+    
+            #오토바이O  헬맷 X
+            if(flag2==0 and helmet_flag == 1):
+                configs = config_env("forstatic",photo[11:],"forstatic")
+                crop_res = Crop_Image(configs)
+                if not len(crop_res):
+                    print('No Plate Detected... Terminating Process...')
+                    continue
+                else:
+                    uploadS3(crop_res, configs[len(configs)-1])
+                    img_format = os.path.splitext(photo[11:])[1]
+                    text = [text[0] for text in getTextsCoords(CVToVision(crop_res,img_format), configs[0])]               
+                    ab.append(text)
+
+    context = {'plateNumber':ab}   
+    return render(req,'index.html',context)
+
+
+
+#_googlevision_Function________________________________________________________________________
+
+def config_env(srcBucket, file_name, dstBucket):
+    configs=[]
+
+    os. environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'C:\\Users\\kang4\\privateKey\\temporal-parser-329211-ce27c0f3eb53.json'
+    client = vision.ImageAnnotatorClient()
+
+    s3= boto3.resource('s3', 
+                    aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+                    aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+                    region_name='ap-northeast-2'
+    )
+    
+    src_bucket = s3.Bucket(srcBucket) 
+    img = src_bucket.Object('static/img/{}'.format(file_name)).get().get('Body').read()
+    img_complete = cv2.imdecode(np.asarray(bytearray(img)),cv2.IMREAD_COLOR)
+    
+    dst_bucket = s3.Bucket(dstBucket)
+
+    configs.append(client)                            ## Google Vision API 사용을 위한 Client 객체
+    configs.append(CVToVision(img_complete,os.path.splitext(file_name)[1]))   ## google vision api 가 인식할 수 있도록 변환된 image (원본 이미지)
+    configs.append(img_complete)                      ## OpenCV 가 인식할 수 있도록 변환된 image (원본 이미지)
+    configs.append(list((dst_bucket,file_name)))      ## 번호판 사진을 저장할 Bucket 의 정보 (해당 목적지 Bucket 객체, 저장될 파일의 이름)
+
+    return configs                                 
+
+def getImgSize(cv_img):   
+    h,w,c= cv_img.shape
+    return h,w
+
+def getPlateCoords(gpc_image,client,img_size):                        ## get Absolute Coords of plate if it exists, if failed 0 returned
+    objects = client.object_localization(image=gpc_image).localized_object_annotations
+    norm_coords = []
+
+    for object_ in objects:
+        if(object_.name == 'License plate'):   
+            for vertex in object_.bounding_poly.normalized_vertices:
+                norm_coords.append(tuple((vertex.x, vertex.y)))
+    
+    if not norm_coords:
+        return -1
+
+    Abs = []
+
+    for coord in norm_coords:
+        Abs.append(list([int(coord[0]*img_size[1]), int (coord[1]*img_size[0])]))
+    return Abs
+
+def getTextsCoords(gpc_image, client):
+    response = client.text_detection(image=gpc_image)
+    texts = response.text_annotations
+
+    textCoords= []
+
+    for text in texts:
+        textCoords.append(tuple((text.description,[(vertex.x, vertex.y) for vertex in text.bounding_poly.vertices])))
+    
+    return textCoords
+
+
+def uploadS3(cv_img,dst_info):            
+    dstBucket, file_name =dst_info
+    image_string = cv2.imencode('.jpg', cv_img)[1].tobytes() 
+    dstBucket.put_object(Key = 'static/img/cropped_{}'.format(file_name), Body=image_string)
+
+def CVToVision(cv_img,img_format):
+    image = cv_img
+    success, encoded_image = cv2.imencode(img_format, image)
+    content2 = encoded_image.tobytes()
+    image_cv2 = vision.Image(content=content2)
+    return image_cv2
+
+def Crop_Image(configs):
+    client,gpc_image,cv_img,dst_info = configs
+    img_prop= getImgSize(cv_img)
+    
+    Abs = getPlateCoords(gpc_image,client,img_prop)
+    if(Abs == -1):
+        print('No Plate Detected')
+        return []
+
+    print('Plate Detected Cropping Now')
+    pts = np.array(Abs)
+    
+    ## (1) Crop the bounding rect
+    poly_4 = cv2.boundingRect(pts)  
+    x,y,w,h = poly_4
+    croped = cv_img[y:y+h, x:x+w].copy()
+    
+    ## (2) make mask
+    pts = pts - pts.min(axis=0)
+    mask = np.zeros(croped.shape[:2], np.uint8)
+    cv2.drawContours(mask, [pts], -1, (255, 255, 255), -1, cv2.LINE_AA)
+    
+    ## (3) do bit-op
+    dst = cv2.bitwise_and(croped, croped, mask=mask)
+    
+    ## (4) add the white background
+    bg = np.ones_like(croped, np.uint8)*255
+    cv2.bitwise_not(bg,bg, mask=mask)
+    dst2 = bg+ dst
+
+
+    ## author BY Baek Geon Woo From KAU
+    return dst2
 
 
 

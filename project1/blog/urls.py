@@ -9,5 +9,7 @@ urlpatterns=[
     path('search/',views.search,name="search"),
     path('searchwhole/',views.searchwhole,name="searchwhole"),
     path('sendsns/<int:phonenumber>/',views.sendsns,name="sendsns"),
-
+    path('result/',views.result,name="result"),
+    path('detect/',views.detect,name="detect"),
+    path('create/',views.create,name="create"),
 ]
