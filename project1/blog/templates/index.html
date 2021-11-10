@@ -12,10 +12,21 @@
         </div>
         <div class="printnumber">
           <button><a href="{% url 'detect' %}">결과보기</a></button>
-          {% for plateNumber in plateNumber %}
-            {{plateNumber}}
-          {% endfor%}
-        </div>
+          <br>
+          <br>
+            {% for plateNumber in plateNumber %}
+            <li>
+                <span class="number">{{plateNumber}}</span>
+            </li>
+            <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:300px;">
+
+            {% endfor%}
+            {% for imgfile in imgfile %}
+            <li>
+                <span class="imgfile">{{imgfile}}[7:]</span>
+            </li>
+            {% endfor %}
+          </div>
     </div>
     <div class="sidepage">
         <div class="location">
@@ -27,7 +38,6 @@
     </div>
 
 </div>
-
 
 
 

@@ -113,7 +113,8 @@ def upload():
 
 def detect(req):
     nlist = upload()
-    ab = list()
+    platenumber = list()
+    imgfile = list()
 
     for name in nlist:
         photo = name
@@ -152,10 +153,20 @@ def detect(req):
                 else:
                     uploadS3(crop_res, configs[len(configs)-1])
                     img_format = os.path.splitext(photo[11:])[1]
-                    text = [text[0] for text in getTextsCoords(CVToVision(crop_res,img_format), configs[0])]               
-                    ab.append(text)
+                    text = [text[0] for text in getTextsCoords(CVToVision(crop_res,img_format), configs[0])][1:]
+                    
+                    a = ""
+                    for i in text:
+                        print(i)
+                        a+=i+" "
+                    
+                    imgfile.append(photo)
+                    platenumber.append(a)
 
-    context = {'plateNumber':ab}   
+    context = {
+        'plateNumber':platenumber,
+        'imgfile':imgfile
+    }   
     return render(req,'index.html',context)
 
 
@@ -266,6 +277,10 @@ def Crop_Image(configs):
 
     ## author BY Baek Geon Woo From KAU
     return dst2
+
+#_____________________________________________________________________
+
+
 
 
 

@@ -223,23 +223,19 @@ def upload():
 #         text = [text[0] for text in getTextsCoords(CVToVision(crop_res,img_format), configs[0])]
 #         print(text)
 
-    # uploadS3(crop_res, configs[len(configs)-1])
-    # img_format = os.path.splitext(photo[11:])[1]
     
 
 
-file_name = input('type source_image name (except "static/img/") : ')    ## 불러올 이미지의 이름 (경로, .jpg 무시, 오로지 이미지 이름만 입력)
+# file_name = input('type source_image name (except "static/img/") : ')    ## 불러올 이미지의 이름 (경로, .jpg 무시, 오로지 이미지 이름만 입력)
 
-img_format = os.path.splitext(file_name)[1]
-configs = config_env("forstatic",file_name,"forstatic")     ## [api_client 객체, google vision image 객체, cv_image 객체,[목적지 Bucket, 파일 이름]]
+img_format = os.path.splitext("No4.jpg")[1]
+configs = config_env("forstatic","No4.jpg","forstatic")     ## [api_client 객체, google vision image 객체, cv_image 객체,[목적지 Bucket, 파일 이름]]
 crop_res = Crop_Image(configs)                     
 
 if not len(crop_res):
     print('No Plate Detected... Terminating Process...')
     quit()
 
-uploadS3(crop_res, configs[len(configs)-1])
-
-text = [text[1] for text in getTextsCoords(CVToVision(crop_res,img_format), configs[0])]
+text = [text[0] for text in getTextsCoords(CVToVision(crop_res,img_format), configs[0])][1:]
 print(text)
 
