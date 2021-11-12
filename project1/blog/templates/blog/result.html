@@ -1,26 +1,35 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-<div class="form">
+<!-- <div class="form">
     <form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="img" multiple>
         <input type="submit" value="업로드">
     </form>
-</div>
-<div class="photo">
-    {% for photo in photo%} 
-        <img src="{{photo.image.url}}" width="200">
-        <br>
-        <br>
-    {% endfor %}
-</div>
-<div class="tmp">
-    헬맷 미착용자 감지
-    {% for conf in confidence %}
-        {{conf}}
-    {% endfor%}
-</div>
-<div class="button">
-    <button><a href="{% url 'detect' %}">결과출력</a></button>
-</div>
+</div> -->
+<div id="container"></div>
+  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+  <script>
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Historic World Population by Region'
+        },
+        xAxis: {
+            categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
+        },
+        series: [{
+            name: 'Year 1800',
+            data: [107, 31, 635, 203, 2]
+        }, {
+            name: 'Year 1900',
+            data: [133, 156, 947, 408, 6]
+        }, {
+            name: 'Year 2012',
+            data: [1052, 954, 4250, 740, 38]
+        }]
+    });
+  </script>
 {% endblock %}

@@ -12,4 +12,6 @@ urlpatterns=[
     path('result/',views.result,name="result"),
     path('detect/',views.detect,name="detect"),
     path('create/',views.create,name="create"),
+
+
 ]

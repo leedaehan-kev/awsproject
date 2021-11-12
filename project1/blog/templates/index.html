@@ -21,29 +21,67 @@
             <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:300px;">
 
             {% endfor%}
-            {% for imgfile in imgfile %}
-            <li>
-                <span class="imgfile">{{imgfile}}[7:]</span>
-            </li>
-            {% endfor %}
+        
           </div>
     </div>
     <div class="sidepage">
         <div class="location">
              <div id="map" style="border:1px solid black;width:400px;height:320px;"></div>
         </div>
-        <div class="seedata">
-            <img src="{% static 'img/data4.PNG' %}" alt="">
-        </div>
-    </div>
+        <div id="container"></div>
+        <script src="https://code.highcharts.com/highcharts.src.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/series-label.js"></script>
+        <script>
+           var weeklyctx = document.getElementById("myweeklyChart").getContext('2d');
+        var monthlyctx = document.getElementById("mymonthlyChart").getContext('2d');
+        /*
+        - Chart를 생성하면서, 
+        - ctx를 첫번째 argument로 넘겨주고, 
+        - 두번째 argument로 그림을 그릴때 필요한 요소들을 모두 넘겨줍니다. 
+        */
+            
+          Highcharts.chart('container', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: '날짜별 위반 건수'
+              },
+              xAxis: {
+                  categories: _categories
+              },
+              yAxis:{
+                min:0,
+                title:{
+                  text:'횟수'
+                }
+              },
+              series: [{
+                  name: '',
+                  data: [
+                  ],
+                  color: 'green'
+              }, {
+                  name: '',
+                  data: [
+                  ],
+                  color: 'red'
+              }]
+          });
+        </script>    </div>
 
 </div>
 
 
 
 <!--Javascript-->
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d03fb00bef54bdef682cd70bc69010a"></script>
 <script>
+    
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = { 
             center: new kakao.maps.LatLng(37.489629, 127.029440), // 지도의 중심좌표

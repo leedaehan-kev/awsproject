@@ -1,3 +1,4 @@
+from django.db.models.manager import Manager
 from django.shortcuts import render, redirect
 from blog.models import *
 from django.views import generic
@@ -6,7 +7,9 @@ from django.views.generic.edit import CreateView
 from django import forms
 from django.utils import timezone
 from django.core.paginator import Paginator
-
+from django.db.models import Count
+from django.core import serializers
+import json
 #웹캠 library
 from django.views.decorators import gzip
 from django.http import StreamingHttpResponse
@@ -162,12 +165,34 @@ def detect(req):
                     
                     imgfile.append(photo)
                     platenumber.append(a)
-
+                    Carnumber = CarNumber()
+                    Carnumber.carnumber=a
+                    Carnumber.date = timezone.now()
+                    Carnumber.save()
+                    
+                    
+    Carnumber_all = CarNumber.objects.all()
+    jsonlist = getJson()
     context = {
+        'Carnumber_all':Carnumber_all,
+        'cnt':jsonlist,
         'plateNumber':platenumber,
         'imgfile':imgfile
     }   
     return render(req,'index.html',context)
+    
+
+def getJson():
+    Carnumber_all = CarNumber.objects.all().order_by('date')
+
+    return Carnumber_all
+    
+
+
+
+
+
+
 
 
 
