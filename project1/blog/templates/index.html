@@ -20,7 +20,7 @@
             </li>
             <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:300px;">
 
-            {% endfor%}
+            {% endfor %}
         
           </div>
     </div>
@@ -35,14 +35,7 @@
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
         <script src="https://code.highcharts.com/modules/series-label.js"></script>
         <script>
-           var weeklyctx = document.getElementById("myweeklyChart").getContext('2d');
-        var monthlyctx = document.getElementById("mymonthlyChart").getContext('2d');
-        /*
-        - Chart를 생성하면서, 
-        - ctx를 첫번째 argument로 넘겨주고, 
-        - 두번째 argument로 그림을 그릴때 필요한 요소들을 모두 넘겨줍니다. 
-        */
-            
+        
           Highcharts.chart('container', {
               chart: {
                   type: 'column'
@@ -51,25 +44,28 @@
                   text: '날짜별 위반 건수'
               },
               xAxis: {
-                  categories: _categories
+                  categories: [
+                    {% for entry in dataset %}
+                        '{{entry.date}}'
+                        {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                  ]
               },
               yAxis:{
-                min:0,
-                title:{
-                  text:'횟수'
-                }
+                min:0
+                
               },
               series: [{
-                  name: '',
+                  name: '적발 건수',
                   data: [
+                    {% for entry in dataset %}
+                     {{ entry.cnt }}
+                     {% if not forloop.last %}, {% endif %}
+                    {% endfor %}
                   ],
                   color: 'green'
-              }, {
-                  name: '',
-                  data: [
-                  ],
-                  color: 'red'
-              }]
+              }] 
+
           });
         </script>    </div>
 

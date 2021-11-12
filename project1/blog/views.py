@@ -170,25 +170,25 @@ def detect(req):
                     Carnumber.date = timezone.now()
                     Carnumber.save()
                     
-                    
+    json = getjson()              
     Carnumber_all = CarNumber.objects.all()
-    jsonlist = getJson()
+    
     context = {
         'Carnumber_all':Carnumber_all,
-        'cnt':jsonlist,
         'plateNumber':platenumber,
-        'imgfile':imgfile
+        'imgfile':imgfile,
+        'dataset':json
     }   
     return render(req,'index.html',context)
     
-
-def getJson():
-    Carnumber_all = CarNumber.objects.all().order_by('date')
-
-    return Carnumber_all
     
 
-
+def getjson():
+    dataset = CarNumber.objects \
+        .values('date') \
+        .annotate(cnt=Count('date')) \
+        .order_by('date')
+    return dataset
 
 
 
