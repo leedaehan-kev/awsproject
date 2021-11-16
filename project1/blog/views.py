@@ -37,7 +37,14 @@ from shapely.geometry.polygon import Polygon
 
 # Create your views here.
 def index(req):
-    return render(req, "index.html")
+    Carnumber_list = CarNumber.objects.all()
+    json = getjson()  
+    context={
+        'dataset':json,
+        "Carnumber_all":Carnumber_list
+    }
+
+    return render(req, "index.html",context)
 
 class PostDetailView(generic.DetailView):
     model = Post
@@ -78,26 +85,14 @@ def sendsns(req, phonenumber):
 
     return redirect("searchwhole")
 
-
-
-
-def result(req):
-    photo = Photo.objects.all()
-    return render(req,'blog/result.html',{'photo':photo})
-
-def create(req):
-    photo = Photo()
-    try:
-        photo.image = req.FILES['img']
-    except:
-        pass
-    photo.save()
-    return redirect('result')
+ 
 
 
 
 
 
+
+#s3에서 서버로 업로드
 def upload():
     AWS_ACCESS_KEY_ID =os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')
@@ -106,21 +101,30 @@ def upload():
 
     s3 = boto3.client('s3',aws_access_key_id=AWS_ACCESS_KEY_ID,aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
     region_name=AWS_REGION)
-
+    
     namelist = list()
     obj = s3.list_objects(Bucket=AWS_STORAGE_BUCKET_NAME)
     for content in obj['Contents']:
         if('static/img'in content['Key']):
             namelist.append(content['Key'])
+    print("s3에서 업로드끝!")
+    
     return namelist
 
+# s3에서 있는 이미지파일 삭제
+def delete_s3Image(Photo):
+    s3 = boto3.client('s3')
+    s3.delete_object(Bucket="forstatic",Key=Photo)
+    return
+
+#감지->번호판 추출
 def detect(req):
     nlist = upload()
     platenumber = list()
-    imgfile = list()
 
     for name in nlist:
         photo = name
+        
         bucket='forstatic'
         client=boto3.client('rekognition',
         aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
@@ -163,21 +167,20 @@ def detect(req):
                         print(i)
                         a+=i+" "
                     
-                    imgfile.append(photo)
                     platenumber.append(a)
                     Carnumber = CarNumber()
                     Carnumber.carnumber=a
                     Carnumber.date = timezone.now()
                     Carnumber.save()
-                    
-    json = getjson()              
+        delete_s3Image(photo) 
+    
+    # json = getjson()              
     Carnumber_all = CarNumber.objects.all()
     
     context = {
         'Carnumber_all':Carnumber_all,
         'plateNumber':platenumber,
-        'imgfile':imgfile,
-        'dataset':json
+        # 'dataset':json
     }   
     return render(req,'index.html',context)
     
@@ -187,7 +190,7 @@ def getjson():
     dataset = CarNumber.objects \
         .values('date') \
         .annotate(cnt=Count('date')) \
-        .order_by('date')
+        .order_by('date') 
     return dataset
 
 
@@ -255,7 +258,6 @@ def getTextsCoords(gpc_image, client):
         textCoords.append(tuple((text.description,[(vertex.x, vertex.y) for vertex in text.bounding_poly.vertices])))
     
     return textCoords
-
 
 def uploadS3(cv_img,dst_info):            
     dstBucket, file_name =dst_info

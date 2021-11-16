@@ -14,14 +14,13 @@
           <button><a href="{% url 'detect' %}">결과보기</a></button>
           <br>
           <br>
-            {% for plateNumber in plateNumber %}
+            {% for plateNumber in Carnumber_all %}
             <li>
                 <span class="number">{{plateNumber}}</span>
             </li>
             <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:300px;">
-
             {% endfor %}
-        
+
           </div>
     </div>
     <div class="sidepage">
