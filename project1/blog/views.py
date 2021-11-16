@@ -37,94 +37,9 @@ from shapely.geometry.polygon import Polygon
 
 # Create your views here.
 def index(req):
-    Carnumber_list = CarNumber.objects.all()
-    json = getjson()  
-    context={
-        'dataset':json,
-        "Carnumber_all":Carnumber_list
-    }
-
-    return render(req, "index.html",context)
-
-class PostDetailView(generic.DetailView):
-    model = Post
-
-def maps(req):
-    return render(req, 'blog/maps.html')
-
-def info(req):
-    driver = Driver.objects.all()
-    
-    context={
-        "driver": driver,
-    }
-
-    return render(req, "blog/info.html",context=context)
-
-# 필드명__icontains = 조건값 을 통해 조건값이 포함되는 데이터를 대소문자 구분없이 모두 가져옵니다.
-
-def search(req):
-    driver = Driver.objects.all()
-    q = req.POST.get('q',"")
-    if q:
-        driver = driver.filter(carnumber__icontains=q)
-        return render(req,'blog/info.html',{'driver':driver,'q':q})
-    else:
-        return render(req, 'blog/info.html')
-    
-
-def searchwhole(req):
-    driver = Driver.objects.all()
-    return render(req,'blog/info.html',{'driver':driver})
-
-def sendsns(req, phonenumber):
-    # message = client.messages.create(
-    # to = "+82"+f"{phonenumber}",
-    # from_="+13194088767", 
-    # body="문자 전송 Test")
-
-    return redirect("searchwhole")
-
- 
-
-
-
-
-
-
-#s3에서 서버로 업로드
-def upload():
-    AWS_ACCESS_KEY_ID =os.environ.get('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = 'forstatic'
-    AWS_REGION='ap-northeast-2'
-
-    s3 = boto3.client('s3',aws_access_key_id=AWS_ACCESS_KEY_ID,aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-    region_name=AWS_REGION)
-    
-    namelist = list()
-    obj = s3.list_objects(Bucket=AWS_STORAGE_BUCKET_NAME)
-    for content in obj['Contents']:
-        if('static/img'in content['Key']):
-            namelist.append(content['Key'])
-    print("s3에서 업로드끝!")
-    
-    return namelist
-
-# s3에서 있는 이미지파일 삭제
-def delete_s3Image(Photo):
-    s3 = boto3.client('s3')
-    s3.delete_object(Bucket="forstatic",Key=Photo)
-    return
-
-#감지->번호판 추출
-def detect(req):
     nlist = upload()
-    platenumber = list()
-
     for name in nlist:
         photo = name
-        
         bucket='forstatic'
         client=boto3.client('rekognition',
         aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
@@ -167,25 +82,96 @@ def detect(req):
                         print(i)
                         a+=i+" "
                     
-                    platenumber.append(a)
+                    # platenumber.append(a)
                     Carnumber = CarNumber()
                     Carnumber.carnumber=a
                     Carnumber.date = timezone.now()
                     Carnumber.save()
-        delete_s3Image(photo) 
-    
-    # json = getjson()              
-    Carnumber_all = CarNumber.objects.all()
-    
-    context = {
-        'Carnumber_all':Carnumber_all,
-        'plateNumber':platenumber,
-        # 'dataset':json
-    }   
-    return render(req,'index.html',context)
-    
-    
+        delete_s3Image(photo)  #s3에있는 이미지파일 삭제
+        
+    Carnumber_list = CarNumber.objects.all()
+    json = getjson()  
+    context={
+        'dataset':json,
+        "Carnumber_all":Carnumber_list
+    }
 
+    return render(req, "index.html",context)
+
+class PostDetailView(generic.DetailView):
+    model = Post
+
+def maps(req):
+    return render(req, 'blog/maps.html')
+
+def info(req):
+    driver = Driver.objects.all()
+    
+    context={
+        "driver": driver,
+    }
+
+    return render(req, "blog/info.html",context=context)
+
+# 필드명__icontains = 조건값 을 통해 조건값이 포함되는 데이터를 대소문자 구분없이 모두 가져옵니다.
+
+def search(req):
+    driver = Driver.objects.all()
+    q = req.POST.get('q',"")
+    if q:
+        driver = driver.filter(carnumber__icontains=q)
+        return render(req,'blog/info.html',{'driver':driver,'q':q})
+    else:
+        return render(req, 'blog/info.html')
+    
+#
+def searchwhole(req):
+    driver = Driver.objects.all()
+    return render(req,'blog/info.html',{'driver':driver})
+
+
+#문자 전송
+def sendsns(req, phonenumber):
+    # message = client.messages.create(
+    # to = "+82"+f"{phonenumber}",
+    # from_="+13194088767", 
+    # body="문자 전송 Test")
+
+    return redirect("searchwhole")
+
+ 
+
+
+
+
+#s3에서 서버로 업로드
+def upload():
+    AWS_ACCESS_KEY_ID =os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = 'forstatic'
+    AWS_REGION='ap-northeast-2'
+
+    s3 = boto3.client('s3',aws_access_key_id=AWS_ACCESS_KEY_ID,aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+    region_name=AWS_REGION)
+    
+    namelist = list()
+    obj = s3.list_objects(Bucket=AWS_STORAGE_BUCKET_NAME)
+    for content in obj['Contents']:
+        if('static/img'in content['Key']):
+            namelist.append(content['Key'])
+    print("s3에서 업로드끝!")
+    
+    return namelist
+
+# s3에 이미지 파일 삭제
+def delete_s3Image(Photo):
+    s3 = boto3.client('s3')
+    s3.delete_object(Bucket="forstatic",Key=Photo)
+    return
+
+
+    
+# 데이터시각화를 위해 json형식으로 바꾸기
 def getjson():
     dataset = CarNumber.objects \
         .values('date') \

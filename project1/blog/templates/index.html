@@ -11,12 +11,12 @@
             <img src="{% static 'img/133.PNG' %}" alt="">
         </div>
         <div class="printnumber">
-          <button><a href="{% url 'detect' %}">결과보기</a></button>
+
           <br>
           <br>
-            {% for plateNumber in Carnumber_all %}
+            {% for carnumber in Carnumber_all %}
             <li>
-                <span class="number">{{plateNumber}}</span>
+                <span class="number">{{carnumber}}</span>
             </li>
             <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:300px;">
             {% endfor %}
