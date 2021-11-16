@@ -194,10 +194,12 @@ def Crop_Image(configs):
 
     ## author BY Baek Geon Woo From KAU
     return dst2
+
 def delete_s3Image(Photo):
     s3 = boto3.client('s3')
     s3.delete_object(Bucket="forstatic",Key=Photo)
     return
+
 def detect_labels():   
     photo='static/img/No9.png'
     bucket='forstatic'
@@ -236,9 +238,8 @@ def detect_labels():
                 quit()
             text = [text[0] for text in getTextsCoords(CVToVision(crop_res,img_format), configs[0])][1:]
             print(text)
-            delete_s3Image(photo)
-            # s3=boto3.client('s3')
-            # s3.delete_object(Bucket=bucket,Key='static/img/No9.png')
+    delete_s3Image(photo)
+
 
 
 detect_labels() 

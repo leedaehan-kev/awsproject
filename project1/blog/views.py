@@ -35,7 +35,7 @@ from shapely.geometry.polygon import Polygon
 
 
 
-# Create your views here.
+#초기화면
 def index(req):
     nlist = upload()
     for name in nlist:
@@ -71,6 +71,7 @@ def index(req):
                 crop_res = Crop_Image(configs)
                 if not len(crop_res):
                     print('No Plate Detected... Terminating Process...')
+                    delete_s3Image(photo)
                     continue
                 else:
                     uploadS3(crop_res, configs[len(configs)-1])
@@ -89,11 +90,11 @@ def index(req):
                     Carnumber.save()
         delete_s3Image(photo)  #s3에있는 이미지파일 삭제
         
-    Carnumber_list = CarNumber.objects.all()
+    Carnumber_all = CarNumber.objects.all()
     json = getjson()  
     context={
         'dataset':json,
-        "Carnumber_all":Carnumber_list
+        "Carnumber_all":Carnumber_all
     }
 
     return render(req, "index.html",context)
