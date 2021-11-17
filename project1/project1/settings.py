@@ -83,7 +83,19 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'admin',
+#         'USER': 'admin',
+#         'PASSWORD': '12341234',
+#         'HOST': 'forsanhak.cjsudwjytimp.ap-northeast-2.rds.amazonaws.com',
+#         'PORT': '3306',
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -137,23 +149,23 @@ STATICFILES_FINDERS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 여기서부터 aws s3연동
-# DEFAULT_FILE_STORAGE = 'project1.storages.MediaStorage'
-# STATICFILES_STORAGE = 'project1.storages.StaticStorage'
+DEFAULT_FILE_STORAGE = 'project1.storages.MediaStorage'
+STATICFILES_STORAGE = 'project1.storages.StaticStorage'
 
-# MEDIAFILES_LOCATION = 'media'
-# STATICFILES_LOCATION = 'static'
+MEDIAFILES_LOCATION = 'media'
+STATICFILES_LOCATION = 'static'
 
-# AWS_ACCESS_KEY_ID = 'AKIA5MI27BRQRTCB2QCV'
-# AWS_SECRET_ACCESS_KEY = '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'
-# AWS_STORAGE_BUCKET_NAME = 'forstatic'
+AWS_ACCESS_KEY_ID = 'AKIA5MI27BRQRTCB2QCV'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'forstatic'
 
 
-# AWS_REGION='ap-northeast-2'
-# AWS_S3_CUSTOM_DOMAIN= f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com'
+AWS_REGION='ap-northeast-2'
+AWS_S3_CUSTOM_DOMAIN= f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com'
 
-# AWS_S3_DEFAULT_ACL='public-read'
-# AWS_LOCATION='static'
-# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+AWS_S3_DEFAULT_ACL='public-read'
+AWS_LOCATION='static'
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
 
 
