@@ -71,8 +71,11 @@ def index(req):
                 crop_res = Crop_Image(configs)
                 if not len(crop_res):
                     print('No Plate Detected... Terminating Process...')
-                    delete_s3Image(photo)
-                    continue
+                    if(photo[11:]=="static.PNG"):
+                        continue
+                    else:
+                        delete_s3Image(photo)
+                    
                 else:
                     uploadS3(crop_res, configs[len(configs)-1])
                     img_format = os.path.splitext(photo[11:])[1]
@@ -88,7 +91,8 @@ def index(req):
                     Carnumber.carnumber=a
                     Carnumber.date = timezone.now()
                     Carnumber.save()
-        delete_s3Image(photo)  #s3에있는 이미지파일 삭제
+        if(photo[11:]!="static.PNG"):
+            delete_s3Image(photo)  #s3에있는 이미지파일 삭제
         
     Carnumber_all = CarNumber.objects.all()
     json = getjson()  

@@ -237,8 +237,9 @@ def detect_labels():
                 print('No Plate Detected... Terminating Process...')
                 quit()
             text = [text[0] for text in getTextsCoords(CVToVision(crop_res,img_format), configs[0])][1:]
-            print(text)
-    delete_s3Image(photo)
+            
+            print(photo[11:])
+    
 
 
 

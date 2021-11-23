@@ -125,10 +125,6 @@ def getTextsCoords(gpc_image, client):
    =>> dst_info   
        : 목적지 버킷에 대한 정보 (목적지 버킷 객체와, 저장될 파일의 이름)들을 담고 있는 리스트
 '''
-def uploadS3(cv_img,dst_info):            
-    dstBucket, file_name =dst_info
-    image_string = cv2.imencode('.jpg', cv_img)[1].tobytes() 
-    dstBucket.put_object(Key = 'static/img/cropped_{}'.format(file_name), Body=image_string)
 
 '''
 - CVToVision
@@ -223,10 +219,12 @@ def upload():
 #         text = [text[0] for text in getTextsCoords(CVToVision(crop_res,img_format), configs[0])]
 #         print(text)
 
-    
-
-
-# file_name = input('type source_image name (except "static/img/") : ')    ## 불러올 이미지의 이름 (경로, .jpg 무시, 오로지 이미지 이름만 입력)
+from PIL import Image
+def uploadS3(cv_img,dst_info):            
+    dstBucket, file_name =dst_info
+    image_string = cv2.imencode('.jpg', cv_img)[1].tobytes() 
+    print(image_string)
+    # dstBucket.put_object(Key = 'static/img/cropped_{}'.format(file_name), Body=image_string)
 
 img_format = os.path.splitext("No4.jpg")[1]
 configs = config_env("forstatic","No4.jpg","forstatic")     ## [api_client 객체, google vision image 객체, cv_image 객체,[목적지 Bucket, 파일 이름]]
@@ -235,7 +233,11 @@ crop_res = Crop_Image(configs)
 if not len(crop_res):
     print('No Plate Detected... Terminating Process...')
     quit()
+print(configs[len(configs)-1])
 
-text = [text[0] for text in getTextsCoords(CVToVision(crop_res,img_format), configs[0])][1:]
-print(text)
+
+
+
+# text = [text[0] for text in getTextsCoords(CVToVision(crop_res,img_format), configs[0])][1:]
+# print(text)
 
