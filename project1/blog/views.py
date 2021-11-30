@@ -115,7 +115,7 @@ def info(req):
     context={
         "driver": driver,
     }
-
+    
     return render(req, "blog/info.html",context=context)
 
 # 필드명__icontains = 조건값 을 통해 조건값이 포함되는 데이터를 대소문자 구분없이 모두 가져옵니다.
@@ -128,7 +128,8 @@ def search(req):
         return render(req,'blog/info.html',{'driver':driver,'q':q})
     else:
         return render(req, 'blog/info.html')
-    
+
+
 #
 def searchwhole(req):
     driver = Driver.objects.all()
@@ -254,6 +255,7 @@ def uploadS3(cv_img,dst_info):
     dstBucket, file_name =dst_info
     image_string = cv2.imencode('.jpg', cv_img)[1].tobytes() 
     dstBucket.put_object(Key = 'static/img/cropped_{}'.format(file_name), Body=image_string)
+    
 
 def CVToVision(cv_img,img_format):
     image = cv_img
@@ -297,14 +299,6 @@ def Crop_Image(configs):
     return dst2
 
 #_____________________________________________________________________
-
-
-
-
-
-
-
-
 
 
 # 웹캠 비디오스트리밍 코드

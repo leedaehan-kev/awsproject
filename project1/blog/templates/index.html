@@ -11,14 +11,33 @@
             <img src="{% static 'img/133.PNG' %}" alt="">
         </div>
         <div class="printnumber">
-
           <br>
           <br>
             {% for carnumber in Carnumber_all %}
-            <li>
-                <span class="number">{{carnumber}}</span>
-            </li>
-            <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:300px;">
+                <li>
+                    <span id='{{carnumber.carnumber}}' onclick=func(id)>{{carnumber.carnumber}} </span> 
+                    
+                    <div class="black_bg"></div>
+                    <div class="modal_wrap" id="{{carnumber.carnumber}}a">
+                        <div class="modal_close" id="{{carnumber.carnumber}}b"><a href="#">close</a></div>
+                        <div>
+                            {{carnumber.carnumber}}
+                            <br>
+                            <br>
+                            {{carnumber.date}}
+                            <br>
+                            <br>
+                            문자전송 // 수정
+                        </div>
+                    </div>  
+                                 
+                </li>
+
+
+ 
+                <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:300px;">           
+            
+            
             {% endfor %}
 
           </div>
@@ -34,7 +53,6 @@
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
         <script src="https://code.highcharts.com/modules/series-label.js"></script>
         <script>
-        
           Highcharts.chart('container', {
               chart: {
                   type: 'column'
@@ -62,13 +80,31 @@
                      {% if not forloop.last %}, {% endif %}
                     {% endfor %}
                   ],
-                  color: 'green'
+                  color: '#666666'
               }] 
 
           });
-        </script>    </div>
+        </script>   
 
+
+    </div>
 </div>
+<script>
+    function func(id)
+    {             
+        document.getElementById(id+'a').style.display = 'block';
+        document.querySelector('.black_bg').style.display ='block';
+            
+        function offClick() {
+            document.getElementById(id+'a').style.display = 'none';                           
+            document.querySelector('.black_bg').style.display ='none';
+        }
+        document.getElementById(id+'b').addEventListener('click', offClick);
+    }
+</script> 
+
+
+
 
 
 

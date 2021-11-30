@@ -27,10 +27,12 @@ class Post(models.Model):
     def summary(self):
         return self.title[:20]
 
+
+
 class CarNumber(models.Model):
-    carnumber = models.CharField(max_length=20,primary_key=True)
+    carnumber = models.CharField(max_length=100,primary_key=True)
     date = models.DateField(auto_now_add=True,null=True)
-    
+    location = models.CharField(max_length=30)
     
     def __str__(self):
         return self.carnumber
@@ -39,14 +41,8 @@ class CarNumber(models.Model):
 class Driver(models.Model):
     name = models.CharField(max_length=10)
     phonenumber = models.CharField(max_length=15)
-    carnumber = models.CharField(max_length=20)
+    carnumbers = models.CharField(max_length=20)
     count = models.IntegerField()
 
     def __str__(self):
-        return self.carnumber
-
-
-
-
-
-
+        return self.carnumbers

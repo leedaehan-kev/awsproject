@@ -233,7 +233,8 @@ crop_res = Crop_Image(configs)
 if not len(crop_res):
     print('No Plate Detected... Terminating Process...')
     quit()
-print(configs[len(configs)-1])
+
+uploadS3(crop_res,dst_info)
 
 
 
