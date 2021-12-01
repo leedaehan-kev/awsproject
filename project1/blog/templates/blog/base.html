@@ -10,6 +10,14 @@
     <script src="https://kit.fontawesome.com/226cf9ba84.js" crossorigin="anonymous"></script>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /*구글 웹 폰트 적용*/
+        @import url(//fonts.googleapis.com/earlyaccess/notosanssyriacestrangela.css);    
+        .jm-font{
+            font-family: 'Noto Sans Syriac Estrangela', sans-serif;
+            color: orange;
+        }
+      </style>
     <title>PPE DETECTION</title>
 </head>
 <body>
@@ -54,3 +62,19 @@
 
 </body>
 </html>
+<script>
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+        dropdownContent.style.display = "none";
+        } else {
+        dropdownContent.style.display = "block";
+        }
+    });
+    }
+</script>

@@ -1,51 +1,47 @@
 {% extends 'blog/base.html' %}
 {% block content %}
+
 <div class="container">
     <div class="homepage">
-        <div class="title">
-            <li class= bigTitle>Webcam</li>
-            <li class="smallTitle">Whatever is begun in anger ends in shame</li>
-        </div>
-        <div class="firstimage">
-            {% load static %}
-            <img src="{% static 'img/133.PNG' %}" alt="">
-        </div>
-        <div class="printnumber">
-          <br>
-          <br>
-            {% for carnumber in Carnumber_all %}
-                <li>
-                    <span id='{{carnumber.carnumber}}' onclick=func(id)>{{carnumber.carnumber}} </span> 
-                    
-                    <div class="black_bg"></div>
-                    <div class="modal_wrap" id="{{carnumber.carnumber}}a">
-                        <div class="modal_close" id="{{carnumber.carnumber}}b"><a href="#">close</a></div>
-                        <div>
-                            {{carnumber.carnumber}}
-                            <br>
-                            <br>
-                            {{carnumber.date}}
-                            <br>
-                            <br>
-                            문자전송 // 수정
-                        </div>
-                    </div>  
-                                 
-                </li>
+        <div class="sidenav">
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#clients"></a>
 
-
- 
-                <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:300px;">           
-            
-            
-            {% endfor %}
-
-          </div>
+            <button class="dropdown-btn">서울특별시
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a href="#">서초구</a>
+                <a href="#">강남구</a>
+                <a href="#">은평구</a>
+            </div>
+            <button class="dropdown-btn">경기도
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a href="#">고양시 덕양구</a>
+                <a href="#">고양시 일산동구</a>
+                <a href="#">고양시 일산서구</a>
+            </div>
+            <button class="dropdown-btn">인천광역시
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a href="#">중구</a>
+                <a href="#">동구</a>
+                <a href="#">연수구</a>
+            </div>
+            <a href="#contact">Contact</a>
+        </div>  
+        
     </div>
     <div class="sidepage">
+        
         <div class="location">
-             <div id="map" style="border:1px solid black;width:400px;height:320px;"></div>
+                <div id="map" style="border:1px solid black;width:400px;height:320px;"></div>
         </div>
+        
         <div id="container"></div>
         <script src="https://code.highcharts.com/highcharts.src.js"></script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -84,11 +80,45 @@
               }] 
 
           });
-        </script>   
+        </script>
+        <div class="printnumber">
+            <br>
+            <br>
+                {% for carnumber in Carnumber_all %}
+                    <li>
+                        <span id='{{carnumber.carnumber}}' onclick=func(id)>{{carnumber.carnumber}} </span> 
+                        
+                        <div class="black_bg"></div>
+                        <div class="modal_wrap" id="{{carnumber.carnumber}}a">
+                            <div class="modal_close" id="{{carnumber.carnumber}}b"><a href="#">close</a></div>
+                            <div>
+                                {{carnumber.carnumber}}
+                                <br>
+                                <br>
+                                {{carnumber.date}}
+                                <br>
+                                <br>
+                                문자전송 // 수정
+                            </div>
+                        </div>  
+                                    
+                    </li>
+                    <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:300px;">                  
+                {% endfor %}
 
-
+        </div>   
     </div>
+    
 </div>
+
+
+
+
+
+
+
+
+
 <script>
     function func(id)
     {             
