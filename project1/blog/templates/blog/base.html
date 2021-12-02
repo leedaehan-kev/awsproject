@@ -10,14 +10,7 @@
     <script src="https://kit.fontawesome.com/226cf9ba84.js" crossorigin="anonymous"></script>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <style>
-        /*구글 웹 폰트 적용*/
-        @import url(//fonts.googleapis.com/earlyaccess/notosanssyriacestrangela.css);    
-        .jm-font{
-            font-family: 'Noto Sans Syriac Estrangela', sans-serif;
-            color: orange;
-        }
-      </style>
+
     <title>PPE DETECTION</title>
 </head>
 <body>
@@ -28,20 +21,18 @@
         </div>
 
         <ul class="navbar__menu">
-            <li><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'info' %}">Info</a></li>
+            <li><a href="{% url 'index' %}">홈</a></li>
+            <li><a href="{% url 'info' %}">운전자정보</a></li>
             {% if user.is_authenticated %}
 
-            <li><a href="{% url 'logout' %}">logout</a></li>
+            <li><button><a href="{% url 'logout' %}">로그아웃</a></button></li>
             {% else %}
-            <li><a href="{% url 'signup' %}">Register</a></li>
-            <li><a href="{% url 'login' %}">login</a></li>
+            <li><a href="{% url 'signup' %}">회원가입</a></li>
+            <li><button><a href="{% url 'login' %}">로그인</a></button></li>
             {% endif %}
 
         </ul>
-        <div class="navbar__icons">
-            
-        </div>
+
     </nav>
 
     {% block content %}

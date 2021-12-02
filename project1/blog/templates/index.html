@@ -4,9 +4,8 @@
 <div class="container">
     <div class="homepage">
         <div class="sidenav">
-            <a href="#about">About</a>
+            <a href="#">About</a>
             <a href="#services">Services</a>
-            <a href="#clients"></a>
 
             <button class="dropdown-btn">서울특별시
                 <i class="fa fa-caret-down"></i>
@@ -33,15 +32,52 @@
                 <a href="#">연수구</a>
             </div>
             <a href="#contact">Contact</a>
-        </div>  
-        
+        </div>         
     </div>
-    <div class="sidepage">
-        
+    <div class="sidepage">      
         <div class="location">
-                <div id="map" style="border:1px solid black;width:400px;height:320px;"></div>
+            <span class="locationtitle">
+                현재 위치
+            </span>
+            <div id="map" style="border:1px solid black;width:500px;height:320px;"></div>
         </div>
-        
+        <div class="printnumber">
+            <span class="printtitle">
+                위반자 명단
+            </span>
+            {% for carnumber in Carnumber_all %}
+                <li>
+                    <span id='{{carnumber.carnumber}}' onclick=func(id)>{{carnumber.carnumber}} </span> 
+                    
+                    <div class="black_bg"></div>
+                    <div class="modal_wrap" id="{{carnumber.carnumber}}a">
+                        <div class="modal_close" id="{{carnumber.carnumber}}b"><a href="#">close</a></div>
+                        <div class="mmain">
+                            <div class="mimage">
+                                {% load static%}
+                                <img src="{% static 'img/133.PNG' %}" alt="">
+                            </div>
+                            <div class="mtitle">
+                                <span class="mnumber">번호</span>
+                                <span class="mcarnumber">{{carnumber.carnumber}}</span>
+                            </div>
+                            <div class="mdate">
+                                {{carnumber.date}}
+                            </div>
+
+                            <div class="mexecute">
+                                <span class="msns"><a href="{% url 'sns' %}">문자전송</a></span>
+                                <span class="medit"><a href="">수정</a></span>
+                            </div>
+                            
+                        </div>
+                    </div>  
+                                
+                </li>
+                <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:300px;">                  
+            {% endfor %}
+
+        </div> 
         <div id="container"></div>
         <script src="https://code.highcharts.com/highcharts.src.js"></script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -54,7 +90,7 @@
                   type: 'column'
               },
               title: {
-                  text: '날짜별 위반 건수'
+                  text: '위반 현황'
               },
               xAxis: {
                   categories: [
@@ -81,34 +117,10 @@
 
           });
         </script>
-        <div class="printnumber">
-            <br>
-            <br>
-                {% for carnumber in Carnumber_all %}
-                    <li>
-                        <span id='{{carnumber.carnumber}}' onclick=func(id)>{{carnumber.carnumber}} </span> 
-                        
-                        <div class="black_bg"></div>
-                        <div class="modal_wrap" id="{{carnumber.carnumber}}a">
-                            <div class="modal_close" id="{{carnumber.carnumber}}b"><a href="#">close</a></div>
-                            <div>
-                                {{carnumber.carnumber}}
-                                <br>
-                                <br>
-                                {{carnumber.date}}
-                                <br>
-                                <br>
-                                문자전송 // 수정
-                            </div>
-                        </div>  
-                                    
-                    </li>
-                    <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:300px;">                  
-                {% endfor %}
-
-        </div>   
     </div>
-    
+    <div class="imgpage">
+        여긴 이미지 넣을곳??여긴 이미지 넣을곳??여긴 이미지 넣을곳??
+    </div>
 </div>
 
 

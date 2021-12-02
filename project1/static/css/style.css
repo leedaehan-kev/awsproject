@@ -1,20 +1,21 @@
 .sidenav {
   height: 140vh;
-  width: 250px;
+  width: 200px;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: rgb(240, 213, 255);
+  background-color: rgb(54, 54, 54);
   overflow-x: hidden;
   padding-top: 20px;
+  
 }
 
 /* Style the sidenav links and the dropdown button */
 .sidenav a, .dropdown-btn {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
-  font-size: 20px;
-  color: #818181;
+  font-size: 15px;
+  color: #d4d4d4;
   display: block;
   border: none;
   background: none;
@@ -22,7 +23,9 @@
   text-align: left;
   cursor: pointer;
   outline: none;
+  border-bottom: 1px solid black;
 }
+
 
 /* On mouse-over */
 .sidenav a:hover, .dropdown-btn:hover {
@@ -38,14 +41,13 @@
 
 /* Add an active class to the active dropdown button */
 .active {
-  background-color: green;
+  background-color: #5e5e5e;
   color: white;
 }
 
-/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container {
   display: none;
-  background-color: #db7aff;
+  background-color: #5e5e5e;
   padding-left: 8px;
 }
 
@@ -74,12 +76,15 @@ li{
   display:flex;
   justify-content: space-between;
   align-items: center;
-  background-color:rgba(153, 0, 255, 0.986);
+  background-color:rgba(62, 39, 146, 0.986);
   padding:1px 1px;
   color:white;
 }
 .navbar__logo{
   font-size: 24px;
+}
+.navbar__logo a{
+  color:white;
 }
 .navbar__logo  i{
   color:white;
@@ -88,15 +93,19 @@ li{
   display:flex;
   list-style:none;
   padding-left:0;
+  margin-right:30px;
+  font-size:14px;
+}
+.navbar__menu button{
+  font-size: 14px;
+  background-color:rgb(122, 86, 252);
+  border-style:none;
 }
 .navbar__menu li{
   padding:8px 12px;
 }
 .navbar__menu li:hover{
-  border:1px solid WHITE;
-  padding: 7px;
-  background-color:rgb(163, 172, 223);
-  border-radius: 4px;
+  color: #f1f1f1;
 }
 .navbar__icons{
   list-style: none;
@@ -129,13 +138,16 @@ li{
   width:100%;
   display:flex;
 }
-.container a{
-  color:black;
-}
+
+
 .homepage{
-  border:1px solid black;
-  width:30%;
+  border:3px solid rgb(182, 15, 15);
+  width:20%;
   align-items: center;
+}
+.imgpage{
+
+  border:3px solid green;
 }
 .title{
   padding:20px;
@@ -167,9 +179,9 @@ li{
   top:50%;
   left: 50%;
   margin: -250px 0 0 -250px;
-  background:#eee;
+  background:rgb(255, 255, 255);
   z-index: 2;
-  border-radius: 5px;
+  border:1px solid black;
 
 }
 .black_bg{
@@ -178,7 +190,7 @@ li{
   content: "";
   width: 100%;
   height: 170vh;
-  background-color:rgba(0, 0,0, 0.5);
+  background-color:rgba(0, 0, 0, 0.5);
   top:0;
   left: 0;
   z-index: 1;
@@ -198,10 +210,22 @@ li{
   text-indent: -9999px;
 }
 
-
+.mimage{
+  padding:20px 30px;
+}
+.mimage img{
+  width:70%;
+}
+.mexecute{
+  
+}
+.mexecute a{
+  color:black;
+}
 
 
 .sidepage{
+  width:40%;
   border:3px solid black;
   align-items: center;
 }

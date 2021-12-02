@@ -145,7 +145,12 @@ def sendsns(req, phonenumber):
 
     return redirect("searchwhole")
 
- 
+def sns(req):
+    return redirect('index')
+
+
+
+
 
 
 
