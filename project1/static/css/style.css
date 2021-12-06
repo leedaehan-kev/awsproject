@@ -1,6 +1,6 @@
 .sidenav {
   height: 140vh;
-  width: 200px;
+  width: 70%;
   z-index: 1;
   top: 0;
   left: 0;
@@ -138,17 +138,12 @@ li{
   width:100%;
   display:flex;
 }
-
-
-.homepage{
-  border:3px solid rgb(182, 15, 15);
-  width:20%;
-  align-items: center;
+.lastpage{
+  border:5px solid black;
 }
-.imgpage{
 
-  border:3px solid green;
-}
+
+
 .title{
   padding:20px;
   text-align: center;
@@ -223,24 +218,23 @@ li{
   color:black;
 }
 
-
+.homepage{
+  border:3px solid rgb(182, 15, 15);
+  width:20%;
+  align-items: center;
+}
 .sidepage{
   width:40%;
   border:3px solid black;
   align-items: center;
 }
-.sidepage .location{
+.sidepage .printnumber{
   padding:50px;
 }
-.sidepage .location .mname{
+.sidepage .location{
   padding:20px;
-  color:black;
 }
-.sidepage .seedata img{
-  width:400px;
-  height:300px;
-  border:1px solid black;
-}
+
 
 
 

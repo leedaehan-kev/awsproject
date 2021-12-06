@@ -1,5 +1,11 @@
 {% extends 'blog/base.html' %}
 {% block content %}
+<style>
+    body{
+        {% load static %}
+        background-image: url({% static 'img/ㅋㅋ.jpg' %});
+    }
+</style>
 
 <div class="container">
     <div class="homepage">
@@ -34,12 +40,12 @@
             <a href="#contact">Contact</a>
         </div>         
     </div>
-    <div class="sidepage">      
+    <div class="sidepage">    
         <div class="location">
             <span class="locationtitle">
                 현재 위치
             </span>
-            <div id="map" style="border:1px solid black;width:500px;height:320px;"></div>
+            <div id="map" style="border:1px solid black;width:100%;height:320px;"></div>
         </div>
         <div class="printnumber">
             <span class="printtitle">
@@ -87,7 +93,14 @@
         <script>
           Highcharts.chart('container', {
               chart: {
-                  type: 'column'
+                  type: 'column',
+                  backgroundColor: 'grey',
+                  style:{
+                      fontFamily: '"Georgia", "Verdana", sans-serif',
+                      fontWeight: 'bold',
+                      color: '#000000'
+                  },
+
               },
               title: {
                   text: '위반 현황'
@@ -118,8 +131,8 @@
           });
         </script>
     </div>
-    <div class="imgpage">
-        여긴 이미지 넣을곳??여긴 이미지 넣을곳??여긴 이미지 넣을곳??
+    <div class="lastpage">
+    sdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf
     </div>
 </div>
 

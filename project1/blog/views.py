@@ -143,6 +143,29 @@ def sendsns(req, phonenumber):
     # from_="+13194088767", 
     # body="문자 전송 Test")
 
+    client = boto3.client(
+    "sns",
+    aws_access_key_id="AKIA5MI27BRQ4CLRPIUQ",
+    aws_secret_access_key="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",
+    region_name="ap-northeast-1" 
+    )
+
+    topic_arn = 'arn:aws:sns:ap-northeast-1:919716432993:mysns'
+    client.subscribe(
+    TopicArn=topic_arn,
+    Protocol='sms',
+    Endpoint="+82"+f"{phonenumber}"
+    )
+
+    client.publish(
+    TopicArn=topic_arn ,
+    Message="nigga."
+    )
+
+    client.publish(
+    PhoneNumber="+8201011112222",
+    Message="AWS SMS 파이썬 테스트"
+    )
     return redirect("searchwhole")
 
 def sns(req):
