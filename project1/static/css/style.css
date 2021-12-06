@@ -115,8 +115,9 @@ li{
   margin-left:10px;
 }
 .footbar{
+  border:2px solid black;
   background-color:white;
-  height:150px;
+  height:100%;
 
 }
 .footbar ul{
@@ -133,15 +134,24 @@ li{
 /* index.html */
 
 .container{
-  border:1px solid black;
+  border:10px solid black;
   height:100%;
   width:100%;
   display:flex;
 }
 .lastpage{
   border:5px solid black;
+  width: 40%;
 }
 
+.lastpage #container{
+  width:80%;
+  padding:40px;
+  margin-top:40px;
+}
+.lastpage .printnumber{
+  padding:50px;
+}
 
 
 .title{
@@ -228,14 +238,18 @@ li{
   border:3px solid black;
   align-items: center;
 }
-.sidepage .printnumber{
-  padding:50px;
-}
+
 .sidepage .location{
   padding:20px;
+  border:2px solid black;
 }
-
-
+.sidepage #map{
+  margin-top:60px;
+}
+.lastpage .printtitle{
+  font-size:30px;
+  padding-bottom:30px;
+}
 
 
 /* post_detail.html */

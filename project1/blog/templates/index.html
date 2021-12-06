@@ -10,14 +10,14 @@
 <div class="container">
     <div class="homepage">
         <div class="sidenav">
-            <a href="#">About</a>
+            <a href="{% url 'about' %}">About</a>
             <a href="#services">Services</a>
 
             <button class="dropdown-btn">서울특별시
                 <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-container">
-                <a href="#">서초구</a>
+                <a href="{% url 'seocho' %}">서초구</a>
                 <a href="#">강남구</a>
                 <a href="#">은평구</a>
             </div>
@@ -25,7 +25,7 @@
                 <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-container">
-                <a href="#">고양시 덕양구</a>
+                <a href="{% url 'duckyang' %}">고양시 덕양구</a>
                 <a href="#">고양시 일산동구</a>
                 <a href="#">고양시 일산서구</a>
             </div>
@@ -43,47 +43,12 @@
     <div class="sidepage">    
         <div class="location">
             <span class="locationtitle">
-                현재 위치
+
             </span>
             <div id="map" style="border:1px solid black;width:100%;height:320px;"></div>
         </div>
-        <div class="printnumber">
-            <span class="printtitle">
-                위반자 명단
-            </span>
-            {% for carnumber in Carnumber_all %}
-                <li>
-                    <span id='{{carnumber.carnumber}}' onclick=func(id)>{{carnumber.carnumber}} </span> 
-                    
-                    <div class="black_bg"></div>
-                    <div class="modal_wrap" id="{{carnumber.carnumber}}a">
-                        <div class="modal_close" id="{{carnumber.carnumber}}b"><a href="#">close</a></div>
-                        <div class="mmain">
-                            <div class="mimage">
-                                {% load static%}
-                                <img src="{% static 'img/133.PNG' %}" alt="">
-                            </div>
-                            <div class="mtitle">
-                                <span class="mnumber">번호</span>
-                                <span class="mcarnumber">{{carnumber.carnumber}}</span>
-                            </div>
-                            <div class="mdate">
-                                {{carnumber.date}}
-                            </div>
-
-                            <div class="mexecute">
-                                <span class="msns"><a href="{% url 'sns' %}">문자전송</a></span>
-                                <span class="medit"><a href="">수정</a></span>
-                            </div>
-                            
-                        </div>
-                    </div>  
-                                
-                </li>
-                <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:300px;">                  
-            {% endfor %}
-
-        </div> 
+    </div>
+    <div class="lastpage">
         <div id="container"></div>
         <script src="https://code.highcharts.com/highcharts.src.js"></script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -94,7 +59,7 @@
           Highcharts.chart('container', {
               chart: {
                   type: 'column',
-                  backgroundColor: 'grey',
+                  backgroundColor: 'transparent',
                   style:{
                       fontFamily: '"Georgia", "Verdana", sans-serif',
                       fontWeight: 'bold',
@@ -130,9 +95,45 @@
 
           });
         </script>
-    </div>
-    <div class="lastpage">
-    sdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf
+        <div class="printnumber">
+            <div class="printtitle">
+                위반자 명단
+            </div>
+            <div class= "numberlist">
+                {% for carnumber in Carnumber_all %}
+                    <li>
+                        <span id='{{carnumber.carnumber}}' onclick=func(id)>{{carnumber.carnumber}} </span> 
+                        
+                        <div class="black_bg"></div>
+                        <div class="modal_wrap" id="{{carnumber.carnumber}}a">
+                            <div class="modal_close" id="{{carnumber.carnumber}}b"><a href="#">close</a></div>
+                            <div class="mmain">
+                                <div class="mimage">
+                                    {% load static%}
+                                    <img src="{% static 'img/133.PNG' %}" alt="">
+                                </div>
+                                <div class="mtitle">
+                                    <span class="mnumber">번호</span>
+                                    <span class="mcarnumber">{{carnumber.carnumber}}</span>
+                                </div>
+                                <div class="mdate">
+                                    {{carnumber.date}}
+                                </div>
+
+                                <div class="mexecute">
+                                    <span class="msns"><a href="{% url 'sns' %}">문자전송</a></span>
+                                    <span class="medit"><a href="">수정</a></span>
+                                </div>
+                                
+                            </div>
+                        </div>  
+                                    
+                    </li>
+                    <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:100%;">                  
+                {% endfor %}
+            </div>
+        </div> 
+
     </div>
 </div>
 

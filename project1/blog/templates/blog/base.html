@@ -17,11 +17,11 @@
     <nav class="navbar">
         <div class="navbar__logo">
             <i class="fas fa-hard-hat"></i>
-            <a href="{% url 'index' %}">PPE Detection</a>
+            <a href="{% url 'about' %}">PPE Detection</a>
         </div>
 
         <ul class="navbar__menu">
-            <li><a href="{% url 'index' %}">홈</a></li>
+            <li><a href="{% url 'about' %}">홈</a></li>
             <li><a href="{% url 'info' %}">운전자정보</a></li>
             {% if user.is_authenticated %}
 

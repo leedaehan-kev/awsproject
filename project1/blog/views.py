@@ -36,7 +36,13 @@ from shapely.geometry.polygon import Polygon
 
 
 #초기화면
-def index(req):
+def about(req):
+    return render(req,"blog/about.html")
+
+def duckyang(req):
+    return render(req,"blog/duckyang.html")
+
+def seocho(req):
     nlist = upload()
     for name in nlist:
         photo = name
@@ -159,7 +165,7 @@ def sendsns(req, phonenumber):
 
     client.publish(
     TopicArn=topic_arn ,
-    Message="nigga."
+    Message="위반했읍니다."
     )
 
     client.publish(

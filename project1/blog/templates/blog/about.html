@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<style>
+    body{
+        {% load static %}
+        background-image: url({% static 'img/ㅋㅋ.jpg' %});
+    }
+</style>
+
+<div class="container">
+    <div class="homepage">
+        <div class="sidenav">
+            <a href="{% url 'about' %}">About</a>
+            <a href="#services">Services</a>
+
+            <button class="dropdown-btn">서울특별시
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a href="{% url 'seocho' %}">서초구</a>
+                <a href="#">강남구</a>
+                <a href="#">은평구</a>
+            </div>
+            <button class="dropdown-btn">경기도
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a href="#">고양시 덕양구</a>
+                <a href="#">고양시 일산동구</a>
+                <a href="#">고양시 일산서구</a>
+            </div>
+            <button class="dropdown-btn">인천광역시
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a href="#">중구</a>
+                <a href="#">동구</a>
+                <a href="#">연수구</a>
+            </div>
+            <a href="#contact">Contact</a>
+        </div>         
+    </div>
+</div>
+
+{% endblock %}
