@@ -220,22 +220,31 @@ def upload():
 #         print(text)
 
 from PIL import Image
-def uploadS3(cv_img,dst_info):            
-    dstBucket, file_name =dst_info
+def uploadS3(cv_img,dst_info):  
+        
+    dstBucket,file_name =dst_info
+    s3= boto3.resource('s3', 
+                aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+                aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+                region_name='ap-northeast-2')  
+    dstBucket = s3.Bucket(name='bucket0ryu')
+    print(dstBucket)
     image_string = cv2.imencode('.jpg', cv_img)[1].tobytes() 
-    print(image_string)
-    # dstBucket.put_object(Key = 'static/img/cropped_{}'.format(file_name), Body=image_string)
+    dstBucket.put_object(Key = 'static/img/cropped_{}'.format(file_name), Body=image_string)
 
-img_format = os.path.splitext("No4.jpg")[1]
-configs = config_env("forstatic","No4.jpg","forstatic")     ## [api_client 객체, google vision image 객체, cv_image 객체,[목적지 Bucket, 파일 이름]]
+
+
+img_format = os.path.splitext("seoch.jpg")[1]
+configs = config_env("forstatic","seoch.jpg","forstatic")     ## [api_client 객체, google vision image 객체, cv_image 객체,[목적지 Bucket, 파일 이름]]
 crop_res = Crop_Image(configs)                     
 
 if not len(crop_res):
     print('No Plate Detected... Terminating Process...')
     quit()
 
-uploadS3(crop_res,dst_info)
+uploadS3(crop_res, configs[len(configs)-1])
 
+# print(configs[len(configs)-1])
 
 
 

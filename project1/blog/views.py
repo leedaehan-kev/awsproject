@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 from django.db.models import Count
 from django.core import serializers
 import json
+from urllib import parse
 #웹캠 library
 from django.views.decorators import gzip
 from django.http import StreamingHttpResponse
@@ -70,7 +71,7 @@ def seocho(req):
                     flag2=1
                 else:
                     helmet_flag=1
-    
+
             #오토바이O  헬맷 X
             if(flag2==0 and helmet_flag == 1):
                 configs = config_env("forstatic",photo[11:],"forstatic")
@@ -83,10 +84,10 @@ def seocho(req):
                         delete_s3Image(photo)
                     
                 else:
-                    uploadS3(crop_res, configs[len(configs)-1])
                     img_format = os.path.splitext(photo[11:])[1]
                     text = [text[0] for text in getTextsCoords(CVToVision(crop_res,img_format), configs[0])][1:]
-                    
+                   
+                    uploadS3(crop_res, configs[len(configs)-1])
                     a = ""
                     for i in text:
                         print(i)
@@ -95,6 +96,8 @@ def seocho(req):
                     # platenumber.append(a)
                     Carnumber = CarNumber()
                     Carnumber.carnumber=a
+                    Carnumber.location = photo[11:]
+                    Carnumber.locationnumber=parse.quote(photo[11:])
                     Carnumber.date = timezone.now()
                     Carnumber.save()
         if(photo[11:]!="static.PNG"):
@@ -108,6 +111,19 @@ def seocho(req):
     }
 
     return render(req, "index.html",context)
+
+def uploadS3(cv_img,dst_info):  
+        
+    dstBucket,file_name =dst_info
+    s3= boto3.resource('s3', 
+                aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+                aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+                region_name='ap-northeast-2')  
+    dstBucket = s3.Bucket(name='bucket0ryu')
+    print(dstBucket)
+    image_string = cv2.imencode('.jpg', cv_img)[1].tobytes() 
+    dstBucket.put_object(Key = 'static/img/cropped_{}'.format(file_name), Body=image_string)
+    
 
 class PostDetailView(generic.DetailView):
     model = Post
@@ -168,14 +184,10 @@ def sendsns(req, phonenumber):
     Message="위반했읍니다."
     )
 
-    client.publish(
-    PhoneNumber="+8201011112222",
-    Message="AWS SMS 파이썬 테스트"
-    )
     return redirect("searchwhole")
 
 def sns(req):
-    return redirect('index')
+    return redirect('about')
 
 
 
@@ -285,11 +297,7 @@ def getTextsCoords(gpc_image, client):
     
     return textCoords
 
-def uploadS3(cv_img,dst_info):            
-    dstBucket, file_name =dst_info
-    image_string = cv2.imencode('.jpg', cv_img)[1].tobytes() 
-    dstBucket.put_object(Key = 'static/img/cropped_{}'.format(file_name), Body=image_string)
-    
+  
 
 def CVToVision(cv_img,img_format):
     image = cv_img
