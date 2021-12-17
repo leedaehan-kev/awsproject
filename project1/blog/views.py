@@ -39,9 +39,76 @@ from shapely.geometry.polygon import Polygon
 #초기화면
 def about(req):
     return render(req,"blog/about.html")
-
+def contact(req):
+    return render(req,"blog/contact.html")
+    
 def duckyang(req):
-    return render(req,"blog/duckyang.html")
+    nlist = upload()
+    for name in nlist:
+        photo = name
+        bucket='forstatic'
+        client=boto3.client('rekognition',
+        aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+                            aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+                            region_name='ap-northeast-2')
+        response = client.detect_labels(Image={'S3Object':
+        {'Bucket':bucket,'Name':photo}},
+                MaxLabels=10)
+        flag=0
+        for label in response['Labels']:           
+            if(label['Name']=='Motorcycle' and label['Confidence']>80):
+                print('오토바이 감지')
+                flag=1
+        
+        helmet_flag=0
+        flag2=0
+        # 오토바이 감지가 된 경우에 헬맷을 썼냐 안썼냐 판별
+        if(flag==1):
+            for label in response['Labels']:
+                if(label['Name']=='Helmet' and label['Confidence']>80):
+                    print('헬맷 착용')
+                    flag2=1
+                else:
+                    helmet_flag=1
+
+            #오토바이O  헬맷 X
+            if(flag2==0 and helmet_flag == 1):
+                configs = config_env("forstatic",photo[11:],"forstatic")
+                crop_res = Crop_Image(configs)
+                if not len(crop_res):
+                    print('No Plate Detected... Terminating Process...')
+                    if(photo[11:]=="static.PNG"):
+                        continue
+                    else:
+                        delete_s3Image(photo)
+                    
+                else:
+                    img_format = os.path.splitext(photo[11:])[1]
+                    text = [text[0] for text in getTextsCoords(CVToVision(crop_res,img_format), configs[0])][1:]
+                   
+                    uploadS3(crop_res, configs[len(configs)-1])
+                    a = ""
+                    for i in text:
+                        print(i)
+                        a+=i+" "
+                    
+                    # platenumber.append(a)
+                    Carnumber = CarNumber()
+                    Carnumber.carnumber=a
+                    Carnumber.location = photo[11:]
+                    Carnumber.locationnumber=parse.quote(photo[11:])
+                    Carnumber.date = timezone.now()
+                    Carnumber.save()
+        if(photo[11:]!="static.PNG"):
+            delete_s3Image(photo)  #s3에있는 이미지파일 삭제
+        
+    Carnumber_all = CarNumber.objects.filter(location__contains='서울특별시 중구') 
+    json = getjson_duckyang()  
+    context={
+        'dataset':json,
+        "Carnumber_all":Carnumber_all
+    }
+    return render(req,"blog/duckyang.html",context)
 
 def seocho(req):
     nlist = upload()
@@ -103,8 +170,9 @@ def seocho(req):
         if(photo[11:]!="static.PNG"):
             delete_s3Image(photo)  #s3에있는 이미지파일 삭제
         
-    Carnumber_all = CarNumber.objects.all()
-    json = getjson()  
+    # Carnumber_all = CarNumber.objects.all()
+    Carnumber_all = CarNumber.objects.filter(location__contains='경기도 고양시 덕양구') 
+    json = getjson_seocho()  
     context={
         'dataset':json,
         "Carnumber_all":Carnumber_all
@@ -146,13 +214,11 @@ def search(req):
     driver = Driver.objects.all()
     q = req.POST.get('q',"")
     if q:
-        driver = driver.filter(carnumber__icontains=q)
+        driver = driver.filter(carnumbers__icontains=q)
         return render(req,'blog/info.html',{'driver':driver,'q':q})
     else:
         return render(req, 'blog/info.html')
 
-
-#
 def searchwhole(req):
     driver = Driver.objects.all()
     return render(req,'blog/info.html',{'driver':driver})
@@ -190,12 +256,6 @@ def sns(req):
     return redirect('about')
 
 
-
-
-
-
-
-
 #s3에서 서버로 업로드
 def upload():
     AWS_ACCESS_KEY_ID =os.environ.get('AWS_ACCESS_KEY_ID')
@@ -224,8 +284,17 @@ def delete_s3Image(Photo):
 
     
 # 데이터시각화를 위해 json형식으로 바꾸기
-def getjson():
+def getjson_seocho():
     dataset = CarNumber.objects \
+        .filter(location__contains='경기도 고양시 덕양구') \
+        .values('date') \
+        .annotate(cnt=Count('date')) \
+        .order_by('date') 
+    return dataset
+
+def getjson_duckyang():
+    dataset = CarNumber.objects \
+        .filter(location__contains='서울특별시 서초구') \
         .values('date') \
         .annotate(cnt=Count('date')) \
         .order_by('date') 

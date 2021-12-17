@@ -201,7 +201,7 @@ def delete_s3Image(Photo):
     return
 
 def detect_labels():   
-    photo='static/img/No9.png'
+    photo='static/img/seoch.jpg'
     bucket='forstatic'
     client=boto3.client('rekognition',
     aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
@@ -231,7 +231,7 @@ def detect_labels():
             print("헬맷 미착용")
             print("이제 번호판 인식 시작")
             img_format = os.path.splitext("No9.png")[1]
-            configs = config_env("forstatic","No9.png","forstatic")     ## [api_client 객체, google vision image 객체, cv_image 객체,[목적지 Bucket, 파일 이름]]
+            configs = config_env("forstatic","seoch.jpg","forstatic")     ## [api_client 객체, google vision image 객체, cv_image 객체,[목적지 Bucket, 파일 이름]]
             crop_res = Crop_Image(configs)                     
             if not len(crop_res):
                 print('No Plate Detected... Terminating Process...')

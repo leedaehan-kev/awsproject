@@ -14,5 +14,6 @@ urlpatterns=[
     path('sendsns/<int:phonenumber>/',views.sendsns,name="sendsns"),
     path('sns',views.sns,name='sns'),
     path('about/',views.about,name='about'),
+    path('contact/',views.contact,name='contact'),
 
 ]

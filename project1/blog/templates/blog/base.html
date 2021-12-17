@@ -8,14 +8,23 @@
     <script src="https://kit.fontawesome.com/10b73f68fd.js" crossorigin="anonymous"></script> 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d03fb00bef54bdef682cd70bc69010a"></script>
     <script src="https://kit.fontawesome.com/226cf9ba84.js" crossorigin="anonymous"></script>
+
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <title>PPE DETECTION</title>
+
 </head>
 <body>
+    <style>
+        body{
+            {% load static %}
+            background-image: url({% static 'img/ㅋㅋ.jpg' %});
+        }
+    </style>
     <nav class="navbar">
         <div class="navbar__logo">
+
             <i class="fas fa-hard-hat"></i>
             <a href="{% url 'about' %}">PPE Detection</a>
         </div>
@@ -34,22 +43,22 @@
         </ul>
 
     </nav>
-
+    
     {% block content %}
     {% endblock %}
 
-    <footer class="footbar">
+    <!-- <footer class="footbar">
         <ul>
-                <div class="text">
-                    <p>(10540) 경기도 고양시 덕양구 항공대학로 76</p>
-                    <p>TEL - (02) 300-0114  FAX - (02) 3158-5769 E-mail - kang48450@kau.kr</p>
-                    <hr class = "one">
-                    <p>(산학프로젝트) 1조 강덕영 이대한 윤재혁 유남욱 백근우</p>
-                    <h6 class="text-uppercase fw-bold mb-4">Made by TEAM dukyoung</h6>  
-                </div>
+            <div class="text">
+                <p>(10540) 경기도 고양시 덕양구 항공대학로 76</p>
+                <p>TEL - (02) 300-0114  FAX - (02) 3158-5769 E-mail - kang48450@kau.kr</p>
+                <hr class = "one">
+                <p>(산학프로젝트) 1조 강덕영 이대한 윤재혁 유남욱 백근우</p>
+                <h6 class="text-uppercase fw-bold mb-4">Made by 1 TEAM</h6>  
+            </div>
         </ul>
     </footer>
-    <script src = '../static/js/test.js'></script>
+    <script src = '../static/js/test.js'></script> -->
 
 </body>
 </html>

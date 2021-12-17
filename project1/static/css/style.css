@@ -1,3 +1,25 @@
+/*about.html */
+.centerpage{
+  width:60%;
+
+}
+.centerimg{
+  padding:50px;
+}
+.bigtitle{
+  font-size:30px;
+}
+.smalltitle{
+  font-size:20px;
+  padding:10px;
+}
+.content{
+  padding:20px;
+
+}
+
+
+
 .sidenav {
   height: 140vh;
   width: 70%;
@@ -115,7 +137,7 @@ li{
   margin-left:10px;
 }
 .footbar{
-  border:2px solid black;
+
   background-color:white;
   height:100%;
 
@@ -134,13 +156,13 @@ li{
 /* index.html */
 
 .container{
-  border:10px solid black;
+
   height:100%;
   width:100%;
   display:flex;
 }
 .lastpage{
-  border:5px solid black;
+
   width: 40%;
 }
 
@@ -150,10 +172,21 @@ li{
   margin-top:40px;
 }
 .lastpage .printnumber{
-  padding:50px;
+  padding:60px;
+
 }
+.printtitle .list{
+  border:1px solid black;
+  border-radius: 2px;
+  color:white;
+  background-color: rgba(62, 39, 146, 0.986);
+  display:inline-block;
+  width:100%;
+  height:30px;
+}
+.printtitle{
 
-
+}
 .title{
   padding:20px;
   text-align: center;
@@ -170,7 +203,7 @@ li{
 
 
 .firstimage img{
-  border:1px solid black;
+
   max-width:600px;
   width:100%;
   border-radius: 2%;
@@ -229,26 +262,43 @@ li{
 }
 
 .homepage{
-  border:3px solid rgb(182, 15, 15);
+
   width:20%;
   align-items: center;
 }
 .sidepage{
   width:40%;
-  border:3px solid black;
-  align-items: center;
+
+
 }
 
 .sidepage .location{
-  padding:20px;
-  border:2px solid black;
+
+}
+.sidepage .locationtitle{
+  text-align:left;
+  margin-top:50px;
+  font-size:14px;
+  font-family:arial;
+  font-weight: bold;
 }
 .sidepage #map{
-  margin-top:60px;
+
 }
+.lastpage .printnumber{
+
+
+}
+
 .lastpage .printtitle{
-  font-size:30px;
+  font-size:20px;
   padding-bottom:30px;
+}
+.lastpage .numberlist .id{
+  text-align: right;
+}
+.lastpage .numberlist .id .number{
+  margin-right:120px;
 }
 
 
@@ -474,19 +524,19 @@ li{
   justify-content: center;
   height:170vh;
 }
-.infopage .infocon{
+.infocon{
   width:70%;
 }
-.infopage .infocon .search{
+.infocon .search{
   margin-top:30px;
   padding:2px;
   display:flex;
   justify-content: center;
 }
-.infopage .infocon .search .btn2 a{
+.infocon .search .btn2 a{
   color:grey;
 }
-.infopage .infocon .search .btn2{
+.infocon .search .btn2{
   margin-right:200px;
   border:1px solid rgb(184, 184, 184);
   background-color: rgb(254, 255, 255);
@@ -496,12 +546,12 @@ li{
   cursor:pointer;
 }
 
-.infopage .infocon .search .inputbox{
+.infocon .search .inputbox{
   width:150px;
   height:30px;
 
 }
-.infopage .infocon .search .btn1{
+.infocon .search .btn1{
   font-size: 20px;
   height:30px;
   border:1px solid rgb(156, 172, 194);
@@ -510,38 +560,38 @@ li{
   background-color: rgb(255, 255, 255);
 }
 
-.infopage .infocon .db .nothing{
+.infocon .db .nothing{
   width:100%;
   text-align: center;
 }
-.infopage .infocon .db .category{
+.infocon .db .category{
   text-align: center;
   padding:5px;
 }
-.infopage .infocon .db .category .section{
+.infocon .db .category .section{
   display:flex;
   justify-content: center;
   padding:5px;
 }
-.infopage .infocon .db .category .section span{
+.infocon .db .category .section span{
   margin-right:50px;
 }
-.infopage .infocon .db .category .section .name{
+.infocon .db .category .section .name{
   margin-left:22px;
 }
 
-.infopage .infocon .db .queryset li{
+.infocon .db .queryset li{
   display:flex;
   justify-content: center;
   padding:1px;
 }
-.infopage .infocon .db .queryset li span{
+.infocon .db .queryset li span{
   margin-right:35px;
 }
-.infopage .infocon .db .queryset a{
+.infocon .db .queryset a{
   color:black;
 }
-.infopage .infocon .db .queryset li .snsbtn{
+.infocon .db .queryset li .snsbtn{
   margin-left:10px;
   background-color: rgb(232, 246, 255);
   border:1px solid rgb(197, 197, 197);

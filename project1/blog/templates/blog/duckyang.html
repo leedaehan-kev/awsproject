@@ -1,5 +1,11 @@
 {% extends 'blog/base.html' %}
 {% block content %}
+<style>
+    body{
+        {% load static %}
+        background-image: url({% static 'img/ㅋㅋ.jpg' %});
+    }
+</style>
 <div class="container">
     <div class="homepage">
         <div class="sidenav">
@@ -30,8 +36,110 @@
                 <a href="#">동구</a>
                 <a href="#">연수구</a>
             </div>
-            <a href="#contact">Contact</a>
+            <a href="{% url 'contact' %}">Contact</a>
         </div>         
+    </div>
+    <div class="sidepage">    
+        <div class="location">
+            <div class="locationtitle">
+                <i class="fa-solid fa-house"></i>
+                경기도 > 고양시 덕양구
+            </div>
+            <div id="map" style="border:1px solid black;width:100%;height:320px;"></div>
+        </div>
+    </div>
+    <div class="lastpage">
+        <div id="container"></div>
+        <script src="https://code.highcharts.com/highcharts.src.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/series-label.js"></script>
+        <script>
+          Highcharts.chart('container', {
+              chart: {
+                  type: 'column',
+                  backgroundColor: 'transparent',
+                  style:{
+                      fontFamily: '"Georgia", "Verdana", sans-serif',
+                      fontWeight: 'bold',
+                      color: '#000000'
+                  },
+
+              },
+              title: {
+                  text: '위반 현황'
+              },
+              xAxis: {
+                  categories: [
+                    {% for entry in dataset %}
+                        '{{entry.date}}'
+                        {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                  ]
+              },
+              yAxis:{
+                min:0
+                
+              },
+              series: [{
+                  name: '적발 건수',
+                  data: [
+                    {% for entry in dataset %}
+                     {{ entry.cnt }}
+                     {% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                  ],
+                  color: '#666666'
+              }] 
+
+          });
+        </script>
+        <div class="printnumber">
+            <div class="printtitle">
+                <!-- <hr align="center" style="border: solid 0.1px rgb(0, 0, 0);width:100%;"> -->
+                <span class="list">위반 번호 명단</span>
+                <!-- <hr align="center" style="border: solid 0.1px rgb(0, 0, 0);width:100%;"> -->
+            </div>
+            <div class= "numberlist">
+                {% for carnumber in Carnumber_all %}
+                <ul>
+                    <li>
+                        <div class="id">
+                            <span class="number">{{carnumber.carnumber}} </span> 
+                            <span class="detailbtn"><button id="{{carnumber.carnumber}}" onclick=func(id)>자세히보기</button></span>
+                        </div>
+                       
+                        <div class="black_bg"></div>
+                        <div class="modal_wrap" id="{{carnumber.carnumber}}a">
+                            <div class="modal_close" id="{{carnumber.carnumber}}b"><a href="#">close</a></div>
+                            <div class="mmain">
+                                <div class="mimage">
+                                    <img src="https://bucket0ryu.s3.ap-northeast-2.amazonaws.com/static/img/cropped_{{carnumber.locationnumber}}">
+                                </div>
+                                <div class="mtitle">
+                                    <span class="mnumber">번호</span>
+                                    <span class="mcarnumber">{{carnumber.carnumber}}</span>
+                                </div>
+                                <div class="mdate">
+                                    {{carnumber.date}}
+                                </div>
+
+                                <div class="mexecute">
+                                    <span class="msns"><a href="{% url 'sns' %}">문자전송</a></span>
+                                    <span class="medit"><a href="">수정</a></span>
+                                </div>
+                                
+                            </div>
+                        </div>  
+                                    
+                    </li>
+                </ul>
+                    <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:100%;">                  
+                {% endfor %}
+            </div>
+        </div> 
+
     </div>
 </div>
 
@@ -39,7 +147,56 @@
 
 
 
+<script>
+    function func(id)
+    {             
+        document.getElementById(id+'a').style.display = 'block';
+        document.querySelector('.black_bg').style.display ='block';
+            
+        function offClick() {
+            document.getElementById(id+'a').style.display = 'none';                           
+            document.querySelector('.black_bg').style.display ='none';
+        }
+        document.getElementById(id+'b').addEventListener('click', offClick);
+    }
+</script> 
 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d03fb00bef54bdef682cd70bc69010a"></script>
+<script>
+    
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = { 
+            center: new kakao.maps.LatLng(37.613016009649016, 126.83409035166298), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+    
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    
+    // 마커가 표시될 위치입니다 
+    var markerPosition  = new kakao.maps.LatLng(37.613016009649016, 126.83409035166298); 
+    
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+    
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+    
+    // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+    // marker.setMap(null);
+    function resizeMap() {
+    var mapContainer = document.getElementById('map');
+    mapContainer.style.width = '650px';
+    mapContainer.style.height = '650px'; 
+    }
 
-
+    function relayout() {    
+        
+        // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+        // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+        // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+        map.relayout();
+    }
+</script>
 {% endblock %}

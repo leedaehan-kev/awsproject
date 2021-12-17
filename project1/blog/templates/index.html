@@ -1,11 +1,5 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-<style>
-    body{
-        {% load static %}
-        background-image: url({% static 'img/ㅋㅋ.jpg' %});
-    }
-</style>
 
 <div class="container">
     <div class="homepage">
@@ -37,14 +31,14 @@
                 <a href="#">동구</a>
                 <a href="#">연수구</a>
             </div>
-            <a href="#contact">Contact</a>
+            <a href="{% url 'contact' %}">Contact</a>
         </div>         
     </div>
     <div class="sidepage">    
         <div class="location">
-            <span class="locationtitle">
-
-            </span>
+            <div class="locationtitle">
+                서울특별시 > 서초구
+            </div>
             <div id="map" style="border:1px solid black;width:100%;height:320px;"></div>
         </div>
     </div>
@@ -97,13 +91,20 @@
         </script>
         <div class="printnumber">
             <div class="printtitle">
-                위반자 명단
+            <!-- <hr align="center" style="border: solid 0.1px rgb(0, 0, 0);width:100%;"> -->
+                <span class="list">위반 번호 명단</span>
+            <!-- <hr align="center" style="border: solid 0.1px rgb(0, 0, 0);width:100%;"> -->
+
             </div>
             <div class= "numberlist">
                 {% for carnumber in Carnumber_all %}
+                <ul>
                     <li>
-                        <span id='{{carnumber.carnumber}}' onclick=func(id)>{{carnumber.carnumber}} </span> 
-                        
+                        <div class="id">
+                            <span class="number">{{carnumber.carnumber}} </span> 
+                            <span class="detailbtn"><button id="{{carnumber.carnumber}}" onclick=func(id)>자세히보기</button></span>
+                        </div>
+                       
                         <div class="black_bg"></div>
                         <div class="modal_wrap" id="{{carnumber.carnumber}}a">
                             <div class="modal_close" id="{{carnumber.carnumber}}b"><a href="#">close</a></div>
@@ -128,6 +129,7 @@
                         </div>  
                                     
                     </li>
+                </ul>
                     <hr align="center" style="border: solid 0.1px rgb(190, 188, 188);width:100%;">                  
                 {% endfor %}
             </div>
@@ -158,11 +160,6 @@
     }
 </script> 
 
-
-
-
-
-
 <!--Javascript-->
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d03fb00bef54bdef682cd70bc69010a"></script>
@@ -170,14 +167,14 @@
     
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = { 
-            center: new kakao.maps.LatLng(37.489629, 127.029440), // 지도의 중심좌표
+            center: new kakao.maps.LatLng(37.48950704931422, 127.03119140750644), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
         };
     
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
     
     // 마커가 표시될 위치입니다 
-    var markerPosition  = new kakao.maps.LatLng(37.489629, 127.029440); 
+    var markerPosition  = new kakao.maps.LatLng(37.48950704931422,127.03119140750644); 
     
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
