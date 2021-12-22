@@ -249,12 +249,12 @@ def sendsns(req,phonenumber):
 
     client = boto3.client(
     "sns",
-    aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
-    aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+    aws_access_key_id=os.environ.get('ACCESS_KEY'),
+    aws_secret_access_key=os.environ.get('SECRET_KEY'),
     region_name="ap-northeast-1" 
     )
 
-    topic_arn = 'arn:aws:sns:ap-northeast-1:919716432993:mysns'
+    topic_arn = 'arn:aws:sns:ap-northeast-1:561352652106:mysns'
     
     # client.subscribe(
     # TopicArn=topic_arn,
@@ -286,10 +286,11 @@ def connect(req, carnumber):
 
         client = boto3.client(
         "sns",
-        aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+        aws_access_key_id=os.environ.get('ACCESS_KEY'),
+        aws_secret_access_key=os.environ.get('SECRET_KEY'),
         region_name="ap-northeast-1" 
         )
+        topic_arn = 'arn:aws:sns:ap-northeast-1:561352652106:mysns'
 
         client.publish(
         PhoneNumber="+820"+f"{phonenumber}",
@@ -309,20 +310,35 @@ def connect2(req, carnumber):
         Person = Driver.objects.get(carnumbers=carnumber)
         phonenumber = Person.phonenumber
 
+
         client = boto3.client(
         "sns",
-        aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
-        region_name="ap-northeast-1" 
+        aws_access_key_id=os.environ.get('ACCESS_KEY'),
+        aws_secret_access_key=os.environ.get('SECRET_KEY'),
+        region_name="ap-northeast-1" # 도쿄
         )
-        topic_arn = 'arn:aws:sns:ap-northeast-1:919716432993:mysns'
+        # 주제에 대한 구독자 추가
+        topic_arn = 'arn:aws:sns:ap-northeast-1:561352652106:mysns'
+        # client.subscribe(
+        # TopicArn=topic_arn,
+        # Protocol='sms',
+        # Endpoint='+8201052682194'
+        # )
+        
+        # # 주제를 구독한 사람들에게 메시지 보내기
+        # client.publish(
+        # TopicArn=topic_arn ,
+        # Message="위반되었습니다."
+        # )
 
+        # 주제나 구독자를 정하지 않으면 다음과 같이 간단하게 구현 가능
         client.publish(
-        PhoneNumber="+820"+f"{phonenumber}",
+        PhoneNumber="+82"+f"{phonenumber}",
         Message="헬맷 미착용이 감지되었습니다."
         )
+
         messages.success(req, '문자가 전송되었습니다.')
-        CarNumber.objects.filter(carnumber=carnumber).delete()
+        # CarNumber.objects.filter(carnumber=carnumber).delete()
 
     except Driver.DoesNotExist:
         Person = None
