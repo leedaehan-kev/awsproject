@@ -12,7 +12,11 @@
                 <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-container">
+                {% if user.is_authenticated %}
                 <a href="{% url 'seocho' %}">서초구</a>
+                {% else %}
+                <a href="{% url 'info' %}">서초구</a>
+                {% endif %}
                 <a href="#">강남구</a>
                 <a href="#">은평구</a>
             </div>
@@ -20,7 +24,11 @@
                 <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-container">
+                {% if user.is_authenticated %}
                 <a href="{% url 'duckyang' %}">고양시 덕양구</a>
+                {% else %}
+                <a href="{% url 'info' %}">고양시 덕양구</a>
+                {% endif %}
                 <a href="#">고양시 일산동구</a>
                 <a href="#">고양시 일산서구</a>
             </div>
@@ -35,25 +43,35 @@
             <a href="{% url 'contact' %}">Contact</a>
         </div>         
     </div>
-    <div class="centerpage">
-        <div class="centerimg">
-            {% load static %}
-            <img src="{% static 'img/9.jpg' %}" alt="">
-        </div>
+    <div class="about">
         <div class="Title">
-             <div class="bigtitle">
-                 환영합니다.
-             </div>
-             <div class="smalltitle">
-                 헬맷 미착용 감지 서비스입니다.
-             </div>
+            헬맷 미착용 감지 서비스
         </div>
-        <div class="content">
+        <div class="backimage">
+            {% load static %}
+            <img src="{% static 'img/ㅗㅗ.png' %}" alt="">
+        </div>
+        {% if user.is_authenticated %}
+        <div>
+            <h2>환영합니다.</h2>
+        </div>
+        <div>
             현재까지 이용 가능한 지역은 
-            서울특별시 서초구,
-            경기도 고양시 덕양구입니다.
+            <span style="color:blue">서울특별시 서초구</span>,
+            <span style="color:blue">경기도 고양시 덕양구</span>입니다.
         </div>
+        {% else %}
+        <div>
+            <h2>관리자 접근권한이 필요합니다.</h4>
+        </div>
+        <div>
+            <button class="button1"><a href="{% url 'login' %}">로그인 페이지로 이동>></a></button>
+            <button class="button2"><a href="{% url 'signup' %}">회원가입 페이지로 이동>></a></button>
+
+        </div>
+        {% endif %}
     </div>
+    
 
 </div>
 

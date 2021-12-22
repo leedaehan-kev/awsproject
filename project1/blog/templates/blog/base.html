@@ -5,21 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    <script src="https://kit.fontawesome.com/10b73f68fd.js" crossorigin="anonymous"></script> 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d03fb00bef54bdef682cd70bc69010a"></script>
     <script src="https://kit.fontawesome.com/226cf9ba84.js" crossorigin="anonymous"></script>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">  
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
     <title>PPE DETECTION</title>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
     <style>
+        *{
+            /* font-family: 'Poor Story', cursive; */
+            font-family: 'Do Hyeon', sans-serif;      
+        }
         body{
-            {% load static %}
-            background-image: url({% static 'img/ㅋㅋ.jpg' %});
+            /* {% load static %}
+            background-image: url({% static 'img/ㅋㅋ.jpg' %}); */
+            background-color: rgb(238, 239, 255);
         }
     </style>
     <nav class="navbar">

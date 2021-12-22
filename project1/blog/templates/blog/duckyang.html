@@ -1,11 +1,6 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-<style>
-    body{
-        {% load static %}
-        background-image: url({% static 'img/ㅋㅋ.jpg' %});
-    }
-</style>
+
 <div class="container">
     <div class="homepage">
         <div class="sidenav">
@@ -16,7 +11,11 @@
                 <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-container">
+                {% if user.is_authenticated %}
                 <a href="{% url 'seocho' %}">서초구</a>
+                {% else %}
+                <a href="{% url 'info' %}">서초구</a>
+                {% endif %}
                 <a href="#">강남구</a>
                 <a href="#">은평구</a>
             </div>
@@ -24,7 +23,11 @@
                 <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-container">
+                {% if user.is_authenticated %}
                 <a href="{% url 'duckyang' %}">고양시 덕양구</a>
+                {% else %}
+                <a href="{% url 'info' %}">고양시 덕양구</a>
+                {% endif %}
                 <a href="#">고양시 일산동구</a>
                 <a href="#">고양시 일산서구</a>
             </div>
@@ -42,13 +45,18 @@
     <div class="sidepage">    
         <div class="location">
             <div class="locationtitle">
-                <i class="fa-solid fa-house"></i>
-                경기도 > 고양시 덕양구
+                <i class="fas fa-home"style="color:blue;"></i>
+                <span>경기도 > 고양시 덕양구</span> 
             </div>
             <div id="map" style="border:1px solid black;width:100%;height:320px;"></div>
         </div>
     </div>
     <div class="lastpage">
+        <div class="graph">
+            <div class= "graphtitle">
+                일별 적발 현황
+            </div>
+        </div>
         <div id="container"></div>
         <script src="https://code.highcharts.com/highcharts.src.js"></script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -68,7 +76,7 @@
 
               },
               title: {
-                  text: '위반 현황'
+                  text: ''
               },
               xAxis: {
                   categories: [
@@ -105,20 +113,19 @@
                 {% for carnumber in Carnumber_all %}
                 <ul>
                     <li>
-                        <div class="id">
+                        <div id="id">
                             <span class="number">{{carnumber.carnumber}} </span> 
-                            <span class="detailbtn"><button id="{{carnumber.carnumber}}" onclick=func(id)>자세히보기</button></span>
+                            <span class="detailbtn"><button class="detailbtn2" id="{{carnumber.carnumber}}" onclick=func(id)>자세히보기</button></span>
                         </div>
                        
                         <div class="black_bg"></div>
                         <div class="modal_wrap" id="{{carnumber.carnumber}}a">
-                            <div class="modal_close" id="{{carnumber.carnumber}}b"><a href="#">close</a></div>
+                            <div class="modal_close" id="{{carnumber.carnumber}}b"><i class="fas fa-window-close"></i></div>
                             <div class="mmain">
                                 <div class="mimage">
                                     <img src="https://bucket0ryu.s3.ap-northeast-2.amazonaws.com/static/img/cropped_{{carnumber.locationnumber}}">
                                 </div>
                                 <div class="mtitle">
-                                    <span class="mnumber">번호</span>
                                     <span class="mcarnumber">{{carnumber.carnumber}}</span>
                                 </div>
                                 <div class="mdate">
@@ -126,10 +133,19 @@
                                 </div>
 
                                 <div class="mexecute">
-                                    <span class="msns"><a href="{% url 'sns' %}">문자전송</a></span>
-                                    <span class="medit"><a href="">수정</a></span>
+                                    <button class="msns"><a href="{% url 'connect2' carnumber.carnumber %}">문자전송</a></button>
+                                        {% if messages %}
+                                            {% for message in messages %}
+                                                    <script>
+                                                        Swal.fire({
+                                                            text: '{{message}}',
+                                                            icon: '{{message.tags}}',
+                                                        })
+                                                    </script>
+                                            {% endfor %}
+                                        {% endif %}
+                                    <button class="medit"><a href="{% url 'info' %}">검색</a></button>
                                 </div>
-                                
                             </div>
                         </div>  
                                     
@@ -139,7 +155,6 @@
                 {% endfor %}
             </div>
         </div> 
-
     </div>
 </div>
 

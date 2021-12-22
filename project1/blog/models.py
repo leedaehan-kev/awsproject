@@ -47,3 +47,12 @@ class Driver(models.Model):
 
     def __str__(self):
         return self.carnumbers
+
+class tmpcarnumber(models.Model):
+    carnumber = models.CharField(max_length=100,primary_key=True)
+    date = models.DateField(auto_now_add=True,null=True)
+    location = models.CharField(max_length=30)
+    locationnumber = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.carnumber

@@ -1,4 +1,5 @@
 from django.db.models.manager import Manager
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from blog.models import *
 from django.views import generic
@@ -11,6 +12,7 @@ from django.db.models import Count
 from django.core import serializers
 import json
 from urllib import parse
+from django.contrib import messages
 #웹캠 library
 from django.views.decorators import gzip
 from django.http import StreamingHttpResponse
@@ -92,17 +94,26 @@ def duckyang(req):
                         print(i)
                         a+=i+" "
                     
-                    # platenumber.append(a)
+
                     Carnumber = CarNumber()
                     Carnumber.carnumber=a
                     Carnumber.location = photo[11:]
                     Carnumber.locationnumber=parse.quote(photo[11:])
                     Carnumber.date = timezone.now()
                     Carnumber.save()
+
+                    Tmpcarnumber=tmpcarnumber()
+                    Tmpcarnumber.carnumber=a
+                    Tmpcarnumber.location = photo[11:]
+                    Tmpcarnumber.locationnumber=parse.quote(photo[11:])
+                    Tmpcarnumber.date = timezone.now()
+                    Tmpcarnumber.save()     
+
+
         if(photo[11:]!="static.PNG"):
             delete_s3Image(photo)  #s3에있는 이미지파일 삭제
         
-    Carnumber_all = CarNumber.objects.filter(location__contains='서울특별시 중구') 
+    Carnumber_all = CarNumber.objects.filter(location__contains='경기도 고양시 덕양구') 
     json = getjson_duckyang()  
     context={
         'dataset':json,
@@ -167,11 +178,18 @@ def seocho(req):
                     Carnumber.locationnumber=parse.quote(photo[11:])
                     Carnumber.date = timezone.now()
                     Carnumber.save()
+
+                    Tmpcarnumber=tmpcarnumber()
+                    Tmpcarnumber.carnumber=a
+                    Tmpcarnumber.location = photo[11:]
+                    Tmpcarnumber.locationnumber=parse.quote(photo[11:])
+                    Tmpcarnumber.date = timezone.now()
+                    Tmpcarnumber.save() 
         if(photo[11:]!="static.PNG"):
             delete_s3Image(photo)  #s3에있는 이미지파일 삭제
         
     # Carnumber_all = CarNumber.objects.all()
-    Carnumber_all = CarNumber.objects.filter(location__contains='경기도 고양시 덕양구') 
+    Carnumber_all = CarNumber.objects.filter(location__contains='서울특별시 서초구') 
     json = getjson_seocho()  
     context={
         'dataset':json,
@@ -196,8 +214,7 @@ def uploadS3(cv_img,dst_info):
 class PostDetailView(generic.DetailView):
     model = Post
 
-def maps(req):
-    return render(req, 'blog/maps.html')
+
 
 def info(req):
     driver = Driver.objects.all()
@@ -208,7 +225,6 @@ def info(req):
     
     return render(req, "blog/info.html",context=context)
 
-# 필드명__icontains = 조건값 을 통해 조건값이 포함되는 데이터를 대소문자 구분없이 모두 가져옵니다.
 
 def search(req):
     driver = Driver.objects.all()
@@ -225,7 +241,7 @@ def searchwhole(req):
 
 
 #문자 전송
-def sendsns(req, phonenumber):
+def sendsns(req,phonenumber):
     # message = client.messages.create(
     # to = "+82"+f"{phonenumber}",
     # from_="+13194088767", 
@@ -233,27 +249,88 @@ def sendsns(req, phonenumber):
 
     client = boto3.client(
     "sns",
-    aws_access_key_id="AKIA5MI27BRQ4CLRPIUQ",
-    aws_secret_access_key="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",
+    aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
     region_name="ap-northeast-1" 
     )
 
     topic_arn = 'arn:aws:sns:ap-northeast-1:919716432993:mysns'
-    client.subscribe(
-    TopicArn=topic_arn,
-    Protocol='sms',
-    Endpoint="+82"+f"{phonenumber}"
+    
+    # client.subscribe(
+    # TopicArn=topic_arn,
+    # Protocol='sms',
+    # Endpoint="+82"+f"{phonenumber}"
+    # )
+    
+    # client.publish(
+    # TopicArn=topic_arn ,
+    # Message="헬맷 미착용이 감지되었습니다."
+    # )
+    client.publish(
+    PhoneNumber="+820"+f"{phonenumber}",
+    Message="헬맷 미착용이 감지되었습니다."
     )
 
-    client.publish(
-    TopicArn=topic_arn ,
-    Message="위반했읍니다."
-    )
+    messages.success(req, '문자가 전송되었습니다.')
+    Person = Driver.objects.filter(phonenumber__icontains=phonenumber)
+    cnumber = Person[0]
+    CarNumber.objects.filter(carnumber=cnumber).delete()
+
 
     return redirect("searchwhole")
 
-def sns(req):
-    return redirect('about')
+def connect(req, carnumber):
+    try:
+        Person = Driver.objects.get(carnumbers=carnumber)
+        phonenumber = Person.phonenumber
+
+        client = boto3.client(
+        "sns",
+        aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+        region_name="ap-northeast-1" 
+        )
+
+        client.publish(
+        PhoneNumber="+820"+f"{phonenumber}",
+        Message="헬맷 미착용이 감지되었습니다."
+        )
+        messages.success(req, '문자가 전송되었습니다.')
+        CarNumber.objects.filter(carnumber=carnumber).delete()
+
+    except Driver.DoesNotExist:
+        Person = None
+        messages.error(req, '번호판에 맞는 운전자가 존재하지 않습니다.')
+    return redirect('seocho')
+
+
+def connect2(req, carnumber):
+    try:
+        Person = Driver.objects.get(carnumbers=carnumber)
+        phonenumber = Person.phonenumber
+
+        client = boto3.client(
+        "sns",
+        aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+        region_name="ap-northeast-1" 
+        )
+        topic_arn = 'arn:aws:sns:ap-northeast-1:919716432993:mysns'
+
+        client.publish(
+        PhoneNumber="+820"+f"{phonenumber}",
+        Message="헬맷 미착용이 감지되었습니다."
+        )
+        messages.success(req, '문자가 전송되었습니다.')
+        CarNumber.objects.filter(carnumber=carnumber).delete()
+
+    except Driver.DoesNotExist:
+        Person = None
+        messages.error(req, '번호판에 맞는 운전자가 존재하지 않습니다.')
+
+    return redirect('duckyang')
+
+    
 
 
 #s3에서 서버로 업로드
@@ -285,16 +362,16 @@ def delete_s3Image(Photo):
     
 # 데이터시각화를 위해 json형식으로 바꾸기
 def getjson_seocho():
-    dataset = CarNumber.objects \
-        .filter(location__contains='경기도 고양시 덕양구') \
+    dataset = tmpcarnumber.objects \
+        .filter(location__contains='서울특별시 서초구') \
         .values('date') \
         .annotate(cnt=Count('date')) \
         .order_by('date') 
     return dataset
 
 def getjson_duckyang():
-    dataset = CarNumber.objects \
-        .filter(location__contains='서울특별시 서초구') \
+    dataset = tmpcarnumber.objects \
+        .filter(location__contains='경기도 고양시 덕양구') \
         .values('date') \
         .annotate(cnt=Count('date')) \
         .order_by('date') 

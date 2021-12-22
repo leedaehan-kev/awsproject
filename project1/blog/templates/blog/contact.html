@@ -10,7 +10,11 @@
                 <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-container">
+                {% if user.is_authenticated %}
                 <a href="{% url 'seocho' %}">서초구</a>
+                {% else %}
+                <a href="{% url 'info' %}">서초구</a>
+                {% endif %}
                 <a href="#">강남구</a>
                 <a href="#">은평구</a>
             </div>
@@ -18,7 +22,11 @@
                 <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-container">
+                {% if user.is_authenticated %}
                 <a href="{% url 'duckyang' %}">고양시 덕양구</a>
+                {% else %}
+                <a href="{% url 'info' %}">고양시 덕양구</a>
+                {% endif %}
                 <a href="#">고양시 일산동구</a>
                 <a href="#">고양시 일산서구</a>
             </div>
@@ -36,10 +44,15 @@
     <div class="contact">
         <div class="text">
             <p>(10540) 경기도 고양시 덕양구 항공대학로 76</p>
-            <p>TEL - (02) 300-0114  FAX - (02) 3158-5769 E-mail - kang48450@kau.kr</p>
-            <hr class = "one">
+            <p>사진출처:https://www.police.go.kr/index.do </p>
+            <p>TEL - (02) 300-0114</p>
+            <p>FAX - (02) 3158-5769</p> 
+            <p>E-mail - kang48450@kau.kr</p>
+            <hr class = "one" style="width:70%;">
+        </div>
+        <div class="source">   
             <p>(산학프로젝트) 1조 강덕영 이대한 윤재혁 유남욱 백근우</p>
-            <h6 class="text-uppercase fw-bold mb-4">Made by 1 TEAM</h6>  
+            <h6 style="color:blue;">Made by 1 TEAM</h6>  
         </div>
     </div>
 </div>
