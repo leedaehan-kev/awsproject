@@ -23,10 +23,8 @@ from twilio.rest import Client
 
 import boto3
 import os
-#SMS key(이건 절대노출되면 안됨)
-account_sid = 'ACc9d44e3405a3b0e7588a8bb3ccad2456'
-auth_token = '05eead392a54f50611b7580c0e48bab8' 
-client = Client(account_sid, auth_token)
+
+
 
 #google vision & rekognition api
 import io
@@ -390,7 +388,7 @@ def getjson_duckyang():
         .filter(location__contains='경기도 고양시 덕양구') \
         .values('date') \
         .annotate(cnt=Count('date')) \
-        .order_by('date') 
+        .order_by('date')
     return dataset
 
 
