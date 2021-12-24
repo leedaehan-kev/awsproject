@@ -402,7 +402,6 @@ def getjson_duckyang():
 def config_env(srcBucket, file_name, dstBucket):
     configs=[]
 
-    # os. environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'C:\\Users\\kang4\\privateKey\\temporal-parser-329211-ce27c0f3eb53.json'
     client = vision.ImageAnnotatorClient()
 
     s3= boto3.resource('s3', 
