@@ -336,7 +336,7 @@ def connect2(req, carnumber):
         )
 
         messages.success(req, '문자가 전송되었습니다.')
-        # CarNumber.objects.filter(carnumber=carnumber).delete()
+        CarNumber.objects.filter(carnumber=carnumber).delete()
 
     except Driver.DoesNotExist:
         Person = None
@@ -402,7 +402,7 @@ def getjson_duckyang():
 def config_env(srcBucket, file_name, dstBucket):
     configs=[]
 
-    os. environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'C:\\Users\\kang4\\privateKey\\temporal-parser-329211-ce27c0f3eb53.json'
+    # os. environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'C:\\Users\\kang4\\privateKey\\temporal-parser-329211-ce27c0f3eb53.json'
     client = vision.ImageAnnotatorClient()
 
     s3= boto3.resource('s3', 
